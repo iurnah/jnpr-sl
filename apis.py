@@ -4,27 +4,44 @@ import pymongo
 from pymongo import MongoClient
 import datetime
 
-usage_prompt = 'This version support: \n\tcreatedb,\n\tshowdb,\n\tquit'
+usage_prompt0 = '****************************************'
+usage_prompt1 = 'API write inpymongo for spotlight test bed\n'
+usage_prompt2 = 'This version support: \n\tnewdb,\n\tshowdb,\n\tquit'
+print usage_prompt0
+print usage_prompt1
+print usage_prompt2
 
-client = MongoClient()
+#create a new database
+def newDB(client, db_name):
+	print 'newdb has been created'	 
+
+
+
+
+
+try:
+	connection = MongoClient()
+except:
+	print("Error: Unable to connect to database.")
+	connection = None
 
 while True:
 	cmd = raw_input('> ')
-	if cmd == 'createdb':
-		db_name = rawinput('Enter Database Name:> ')
-		newDB(client, db_name)
+	if cmd == 'newdb':
+		db_name = raw_input('Enter Database Name:> ')
+		newDB(connection, db_name)
 	elif cmd == 'showdb':
-		db_name = rawinput('Enter Database Name:> ')
-		showDB(client, db_name)
+		db_name = raw_input('Enter Database Name:> ')
+		showDB(connection, db_name)
 	elif cmd == 'showcol':
-		db_name = rawinput('Enter Database Name:> ')
-		col_name = rawinput('Enter Database Name:> ')
-		showCol(client, db_name, col_name)
+		db_name = raw_input('Enter Database Name:> ')
+		col_name = raw_input('Enter Database Name:> ')
+		showCol(connection, db_name, col_name)
 	elif cmd == 'quit':
 		break
 	else:
 		print 'command not supported!!\n'
-		print usage_prompt
+		print usage_prompt2
 
 print '\nByeby!!\n'
 
