@@ -4,6 +4,7 @@ import pymongo
 from pymongo import MongoClient
 import datetime
 
+#print the simple prompt when program start up
 usage_prompt0 = '****************************************'
 usage_prompt1 = 'API write inpymongo for spotlight test bed\n'
 usage_prompt2 = 'This version support: \n\tnewdb,\n\tshowdb,\n\tquit'
@@ -15,16 +16,14 @@ print usage_prompt2
 def newDB(client, db_name):
 	print 'newdb has been created'	 
 
-
-
-
-
+#connect to the MongoDB server
 try:
 	connection = MongoClient()
 except:
 	print("Error: Unable to connect to database.")
 	connection = None
 
+#main function
 while True:
 	cmd = raw_input('> ')
 	if cmd == 'newdb':
