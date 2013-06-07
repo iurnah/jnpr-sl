@@ -1,4 +1,4 @@
-!/usr/bin/python
+#!/usr/bin/python
 
 import pymongo
 from pymongo import MongoClient 
