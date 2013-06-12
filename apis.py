@@ -14,6 +14,7 @@ print usage_prompt2
 
 #create a new database
 def newDB(client, db_name):
+	
 	print 'newdb has been created'	 
 
 #connect to the MongoDB server
