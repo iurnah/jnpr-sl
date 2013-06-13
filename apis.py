@@ -7,15 +7,46 @@ import datetime
 #print the simple prompt when program start up
 usage_prompt0 = '****************************************'
 usage_prompt1 = 'API write inpymongo for spotlight test bed\n'
-usage_prompt2 = 'This version support: \n\tnewdb,\n\tshowdb,\n\tquit'
+usage_prompt2 = 'This version support: \n\tshowdbs,\n\tnewdb,\n\treaddb,\n\tquit'
 print usage_prompt0
 print usage_prompt1
 print usage_prompt2
 
-#create a new database
-def newDB(client, db_name):
+#show exist database
+#TODO: add more info about Databases
+def showDBs(connectoin):
+	dbs = connection.database_names()
+	print 'we have databases: '
+	for db in dbs:
+		print '\t' + db
+
+#create a new "database", in fact of a "collection" in MongoDB
+def newDB(connection, ui_db_name, ui_category):
+	mongo_db_name = ui_db_name + ui_category
+	newdb = connection[mongo_db_name]
+	newdb[mongo_db_name].insert({})
+	print 'New database \"%s\" has been created' % (mongo_db_name)
+
+#insert()
+#read a database content, collection.find()
+#TODO: add queryCriteria, maybe multiple of them:
+def readDB(connection, ui_db_name, ui_category, queryCriteria):
+	mongo_db_name = ui_db_name + ui_category
+	mongo_db = connection[mongo_db_name]
+	documents = mongo_db[mongo_db_name].find()
+	print 'collection \"%s\" have following docs:\n'
+	for doc in documents:
+		print doc
+	print '\nRead \"%s\" done! ' % (mongo_db_name)
+
+#update database
+def updateDB(connection, ui_db_name, ui_category, queryCriteria, newValue):
+	#call readDB() before updateDB()
+	print 'In update!'
 	
-	print 'newdb has been created'	 
+#delete database
+def delete(connection, ui_db_name, ui_category, queryCriteria):
+	print "In delete!"
 
 #connect to the MongoDB server
 try:
@@ -27,16 +58,24 @@ except:
 #main function
 while True:
 	cmd = raw_input('> ')
-	if cmd == 'newdb':
-		db_name = raw_input('Enter Database Name:> ')
-		newDB(connection, db_name)
-	elif cmd == 'showdb':
-		db_name = raw_input('Enter Database Name:> ')
-		showDB(connection, db_name)
-	elif cmd == 'showcol':
-		db_name = raw_input('Enter Database Name:> ')
-		col_name = raw_input('Enter Database Name:> ')
-		showCol(connection, db_name, col_name)
+	if 	cmd == 'showdbs':
+		showDBs(connection)
+	elif cmd == 'newdb':
+		ui_db_name = raw_input('Enter Database Name:> ')
+		ui_category = raw_input('Enter Category Name:> ')
+		newDB(connection, ui_db_name, ui_category)
+ 	elif cmd == 'readdb':
+		ui_db_name = raw_input('Enter Database Name:> ')
+		ui_category = raw_input('Enter Category Name:> ')
+		readDB(connection, ui_db_name, ui_category, queryCriteria) 
+	elif cmd == 'update':
+		ui_db_name = raw_input('Enter Database Name:> ')
+		ui_category = raw_input('Enter Category Name:> ') 
+		updateDB(connection, ui_db_name, ui_category, queryCriteria, newValue)
+	elif cmd == 'delete':
+		ui_db_name = raw_input('Enter Database Name:> ')
+		ui_category = raw_input('Enter Category Name:> ')
+		delete(connection, ui_db_name, ui_category, queryCriteria)
 	elif cmd == 'quit':
 		break
 	else:
@@ -44,5 +83,3 @@ while True:
 		print usage_prompt2
 
 print '\nByeby!!\n'
-
-
