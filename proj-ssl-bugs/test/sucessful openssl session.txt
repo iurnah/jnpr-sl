@@ -1,0 +1,79 @@
+bianchi-attacker>>openssl s_client -host 5.0.0.1 -port 443 -ssl3 -cipher AES128-SHA
+CONNECTED(00000003)
+depth=0 /C=US/ST=CA/L=Sunnyvlae/O=Juniper/OU=SBU/CN=juniper.net/emailAddress=ruihan@juniper.ent
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 /C=US/ST=CA/L=Sunnyvlae/O=Juniper/OU=SBU/CN=juniper.net/emailAddress=ruihan@juniper.ent
+verify return:1
+---
+Certificate chain
+ 0 s:/C=US/ST=CA/L=Sunnyvlae/O=Juniper/OU=SBU/CN=juniper.net/emailAddress=ruihan@juniper.ent
+   i:/C=US/ST=CA/L=Sunnyvlae/O=Juniper/OU=SBU/CN=juniper.net/emailAddress=ruihan@juniper.ent
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIFjDCCA3QCCQC7NGuHB5q3eDANBgkqhkiG9w0BAQUFADCBhzELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgTAkNBMRIwEAYDVQQHEwlTdW5ueXZsYWUxEDAOBgNVBAoTB0p1
+bmlwZXIxDDAKBgNVBAsTA1NCVTEUMBIGA1UEAxMLanVuaXBlci5uZXQxITAfBgkq
+hkiG9w0BCQEWEnJ1aWhhbkBqdW5pcGVyLmVudDAeFw0xMzA3MjQxNzE4NTVaFw0x
+NDA3MjQxNzE4NTVaMIGHMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExEjAQBgNV
+BAcTCVN1bm55dmxhZTEQMA4GA1UEChMHSnVuaXBlcjEMMAoGA1UECxMDU0JVMRQw
+EgYDVQQDEwtqdW5pcGVyLm5ldDEhMB8GCSqGSIb3DQEJARYScnVpaGFuQGp1bmlw
+ZXIuZW50MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAySXnjZ1AdDDm
+7rMNp5vXeK34hO/nAgjRJeCfnmm8ijVsWLdyvlDK1uIHmYERYLRWllr9vcCykc2o
+HpeE4kUqD0DQidxFJ5tt2hYrW/MSGeOL+c4y0V1q+5d8yvsMGMJR/9JoH5VSKYwn
+gf+7gOQFfyDlyr7D60DdOv9d275l/RP/uxJFgao8OKo6Z8cgzCk+bIdsK6wckIiB
+MQ6DHqk1WPKSk2sY6dTNnNlXudjUobLg7zM97t7Z5XRwvVPv4ujQa5+fSFtaE5fy
+tNrP7JZrkZSibfY1zXV0/P5AIsiLinPHV/HGM4VKfwObrKg3PdRwayPhzLX1yLKC
+LCI+gbk/UuAfEk6BDgLFu9vpY0SIZu5OOm4/VIFifSeuq8p+WmXkXmtf9a94263B
+/dwap8THeDXRjtgj0wgfCZJ1xN4guewRHzzfwWP94fDRBQKWL+pOK+4DiggJbYwq
+3dv70hFstn+YUdlk0zRLR2SK/zu5kGbYFloqqMvKh7biH4UoOYZu9N3Ka3ISR7j/
+GPHdNGqWc3SLJqkDG5n4OGNwPPhhs9MPeMhcfu4aG4XC3QXATHULKcsoDARbeF6b
+j1Qmc7RyPJTUAKkjLibcPtjz6sh6v1H3Eb7ato45jKCiGTCfbhfFTwGw5GxlHlm5
+KeZAYP3wl0DV0X37sfzhU3EF2uwdf7ECAwEAATANBgkqhkiG9w0BAQUFAAOCAgEA
+YHbrdgFvbfD4juSiXW4oSQCkHF+y9BybU/yjqLXnMk9f6SDqqC3R8dXc3vdeTOH3
+Pty1xAQIdblwyRqYAafVAfbwdZhlPXg1j+q3gEbwmCKEwdbSEaZbxlPSW2tR6/Xv
+CAzUReRfK0Q7O24unjWlSuLO/gKD+0bAJLOYu3pSWIyoLvN/xU94lw6dH/LfVj0u
+M2p6OEXy2xHIc79QwBSd4J2uxCxJlB2qO2s8t5UzbBFiWRXR/vZ715BDKnlw2haj
+OwfOdruuvZXa7gu8QKtud6Id9nepZCR3u7fnLxz9hMRToLcImvjSsPSI7InUoWOD
+ffZ9TVYhqF+CQuRfe8Btg6NvldI2jXTt6BrEF1UgoCbAzUyR9QgwEhypYmpqbxz/
+zl6Mdm1vAL98T/JLwdobV1QLmZewKqlWO5hAGjVnNWLPocrazd2NBjiAjGVk63QS
+IR11/ZCi3UDpSh0mD066J5jY7skjEzqU2nTppKE7ox14914W98t/52rtA3TvtkQO
+d/q9BBc9Mq6FUmqH+aeCG5o84lF4Ucpdjold9bOeuIY2tL2r156Y1PSXsEDwpG+i
+QpzoMeq+qOWTw7wGqnkspvfBAjbdVOpsk/vqcEb9+Qa7+skLh0Zxyj+d0dMcQ00k
+a46Fvxe0O0kTHyQCjNOqLuSNx9qxAVNGVwgb41kT1WU=
+-----END CERTIFICATE-----
+subject=/C=US/ST=CA/L=Sunnyvlae/O=Juniper/OU=SBU/CN=juniper.net/emailAddress=ruihan@juniper.ent
+issuer=/C=US/ST=CA/L=Sunnyvlae/O=Juniper/OU=SBU/CN=juniper.net/emailAddress=ruihan@juniper.ent
+---
+No client certificate CA names sent
+---
+SSL handshake has read 1602 bytes and written 647 bytes
+---
+New, TLSv1/SSLv3, Cipher is AES128-SHA
+Server public key is 4096 bit
+Compression: NONE
+Expansion: NONE
+SSL-Session:
+    Protocol  : SSLv3
+    Cipher    : AES128-SHA
+    Session-ID: FDEA294203420E62DFFBF1097DA6BA9553795EE65A0316DD75CFBD1D3A9639A2
+    Session-ID-ctx:
+    Master-Key: B66FC7C533D8BC82B51C60C57646DF245F4F9FD1F8627D4B822B12F245DA12A8586B4D86B4C24F78E11726099A31986C
+    Key-Arg   : None
+    Krb5 Principal: None
+    Start Time: 1374689086
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self signed certificate)
+---
+GET /index.html HTTP/1.0
+HTTP/1.0 200 ok
+Content-type: text/html
+
+<html>
+
+
+Test only from Rui
+
+</html>
+read:errno=0

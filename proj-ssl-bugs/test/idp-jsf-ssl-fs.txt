@@ -1,0 +1,176 @@
+$Header: /h/cvs-juniper/sw-projects/usp/specs/funcspecs/idp/idp-jsf-ssl-fs.txt,v 1.7 2013/04/24 17:42:34 png Exp $
+
+
+Process Template J3.02.P05.T01S
+
+IDP SSL decryption using JSF Crypto API Functional Specification
+
+Rajiv Ranjan   rranjan@juniper.net
+ping ng        png@juniper.net
+
+Copyright (C) 2010, Juniper Networks, Inc.
+Template Owner(s):  Owner(s) of Software Development Process J3.02.P05
+Template Version 1.41
+
+NOTICE: This document contains proprietary and confidential
+information of Juniper Networks, Inc. and must not be distributed
+outside of the company without the permission of Juniper Networks
+engineering.
+
+0. REVISION HISTORY
+
+0.1
+NPI: 1121 SLT JUNOS n12.3
+PR:  872828
+RLI: 17154
+
+1.  INTRODUCTION
+
+IDP SSL decryption feature currently uses open-ssl lib for software mode and 
+spu-xlr-crypto lib for hardware mode (available only on XLR SPCs).  NG-SPC 
+XLP SPC will have a different HW accelerator for SSL operations.  This HW 
+will be usable only through JSF Crypto APIs. Therefore, IDP code change is 
+required to use synchronous mode JSF Crypto APIs on NG-SPC SPCs. JSF will 
+pick the proper API depends on different hardware platform.
+
+
+REFERENCES:
+
+[1] NPI: 1121 SLT JUNOS n12.3 parent RLI 14956
+[2] http://cvs.juniper.net/cgi-bin/viewcvs.cgi/sw-projects/jsf/specs/jsf_crypto.txt
+
+2.  FUNCTIONALITY
+
+There is no change in IDP SSL functionality. IDP SSL code will continue to work 
+in the same manner on existing XLR SPC. On NG-SPC XLP there will be no change in
+functionality. Only difference will be in RSA key exchange engine, as a difference
+set of JSF crypto APIs will be used. The bulk part will not be touched for phase I.
+Only the RSA  key exchange part will be changed. The JSF api will select suitable 
+decryption engine for different platform.
+The reason to change is there are no XLP support before. we need add 
+the XLP support in NG-SPC, and to do that is through JSF, which has XLP crypto support.
+There should has no change to different key pairs. And the change should not have any affects on the security posture of the system, device or components. 
+
+
+2.1 Goals 
+
+Provide IDP SSL feature on NG-SPC XLP SPC. The level of throughput performance should better than the existing one. 
+
+
+2.2 Exceptions: none
+
+2.2.1 Caveats
+
+2.2.2 Limitations:
+The hardware accelerate only support the key size <=1024
+
+2.2.3 Non-Goals
+ In phase I, bulk encryption/decryption in SSL RP is not changed, we still use software crypto engine (i.e., Open-SSL), the RSA operations are changed to use XLP's SAE via JSF Crypto APIs.
+
+ In phase II, we will change SSL RP bulk encryption/decryption operations to use XLP's SAE via JSF Crypto APIs.
+
+
+2.3     Assumptions: none
+
+2.4     Functional Competitive Data: none
+
+2.5 APIs/Messages N/A
+
+2.6 CLI Config (what new configuration are you adding?):
+No new CLI config will be added.
+
+2.6.1 Software Feature Licensing: Need idp/appid license
+
+2.6.2 J-Web Quick Configuration and Monitor Screen
+N/A
+2.6.3 JUNOScript (when you add new commands, what is the xml-name for the new
+            JUNOScript command?  What does the XML output (tags) look like)?
+N/A
+
+2.7  Examples or Interaction Descriptions    
+2.8 Supportability :as usual
+2.9 Dependencies and Interactions with other Components in the System	
+JSF Crypto is needed and SSLV23_PADDING support is needed from JSF 
+
+2.10	Legal Considerations	
+The software crypto depends on Open-SSL.
+
+3.  Other Requirements: None
+
+4 system Resource Estimation   
+4.1 Performance Related Resources   
+For XLR, single SPC is 1G.
+
+5.  Scaling and Performance 
+5.1 Target Scaling (n/a)  
+5.2 Target Performance	
+
+6.  Compatibility Issues    
+none
+
+7.  Security Considerations 
+As a extension support for xlp, we will only add support for xlp crypto. No other
+part of code will be touched, so there are no change for key store or management.
+It will inherit the same security risk as original one, which is the user's ssl key will 
+be stored on the SRX, that add potential risk for key expose.
+
+8.  Platforms Supported	
+Following platforms will be supported.
+SRX5600|SRX5800
+
+9.  Common Infrastructure   
+9.1 High Availability (HA)  
+9.2 Aggregated Ethernet/ SONET/ IRB Support 
+9.3 Services/JSF (JUNOS Services Framework) Impact  
+SSL will depends on JSF SSL crypto function. SSLV23 PADDING has been added to support ssl inspection.
+
+
+9.4 Multi-Chassis Support
+This feature uses existing IDP configuration and debugging functionality.
+There is no impact on MULTI-CHASSIS SUPPORT.
+
+9.5 64-Bit Support  
+This feature can be enabled for 64-bit environment.
+
+9.6 IPv6 Support    
+9.7 Logical System Support  
+10. SDK Impact	
+10.1	SDK Customer Usage  
+11. JUNOS Ready Software considerations	
+none
+
+12. Notes   
+Current the XLP key size is 1024, any key size >1024 will use software crypto. The performance will be lower in this case.
+
+13. Glossary
+14. Design Specification exception  
+15. Functional Specification Approver Checklist
+
+
+
+Dependencies and interactions with other components in the system
+
+15.1 Examples or interaction descriptions
+
+Free software considerations:
+  Are you considering using any code covered under the GNU General Public
+  License (GNU GPL) or GNU Lesser General Public License (GNU LGPL) or GNU
+  Free Documentation License (GNU FDL)?
+  
+  This may not be possible.  Please send questions on GNU Licensing to
+      gpl-guardians-review@juniper.net
+  with the tracking PR in the subject line.  Please also include the 
+  version of the License (i.e., Version 2, Version 3) being considered.
+
+
+16.  Graceful RE Switch over (GRES), or ISSU Impact 
+
+This feature uses existing IDP configuration and debugging functionality.
+There is no GRES/ISSU impact due to this RLI.
+
+
+
+
+17.  REVIEW COMMENTS
+
+

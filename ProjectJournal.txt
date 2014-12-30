@@ -1,0 +1,716 @@
+﻿Friday, August 2, 2013
+Todos:
+Complete the Slides for the Juniper Work.
+Friday, August 2, 2013
+Todos:
+1. Test the 1k Size Key with high traffic (comment out the hardware code)
+2. Basically to verify my conclusions.
+3. Check how the QAs do the testing in a systematic way of doing their jobs.
+4. Writing the self reflection (2 pages)
+
+
+Thursday, August 1, 2013
+Todos:
+1. Check how the sc_xlr_sae_rsa_private_decryption() return value is generated.
+2. Finalize what I should do in the last several days.
+
+
+Wednesday, July 31, 2013
+Todos:
+1. Send out the email.
+2. how to rewrite the contributor. Put my name in Junos product.
+3. how to check in code to the junos
+4. talk about what I should do next step.
+
+
+Tuesday, July 30, 2013
+1. Come up a test plan for debug the problems
+   1. see the test_for_image_1633_ruihan-counters.txt docuemtns
+1. Adding the not decrypted counter properly.
+2. writing the email to kevin, Ping, and Hayley.
+Monday, July 29, 2013
+todos:
+deal with problems with counters:
+1. add Sessions Not Decrypted - Wrong key
+2. add Sessions - Used jsf for Key Decryption
+3. add Sessions - Error when jsf used
+4. add Sessions - Used openssl for Key Decryption
+5. add Sessions - Error when openssl used
+
+
+
+
+I also changed the sc_ssl_counter.h file in the following directory
+DEV_SRX_12Q1_X44D15_PR_BRANCH_RUI/src/idp/idp/pfe/engine/counter/include/sc_ssl_counter.h
+
+
+
+
+1. To figure out the correct branch.
+   1. why the same branch name in svl-svn.juniper.net doesn’t compatiable with the branch I checked out. (Ping’s modification has already been checked in)
+1. If the DEV_SRX_12Q1_X44D15_PR_BRANCH is the one I should to fix, then all my conclusion is right, except one more confirmation should do is to check why the last counters doesn’t increase for all size of the key, it should increase if the xlr decrypt failed, i.e. for key size of 4096bit
+   1. there are some errors in checking out the code, don’t expect to clear it up.
+   2. Ignore the previous checked code, use the code in sandbox DEV_SRX_12Q1_X44D15_PR_BRANCH_RUI
+
+
+1. using the obove mentionded code, try to do the testing and replay of the all your previous conclusions by the build images
+2. There are three images you should to build, 
+   1. the original code image.
+   2. remove the hardware decryption
+   3. using my modification in the first version, flag the key
+Monday, July 29, 2013
+Try to implement the 
+if (key > 2048) 
+soft_decrypt();
+else 
+        hw_decrypt();
+
+
+to verify my conclusion is correct
+
+
+Friday, July 26, 2013
+This morning, I sent Kevin an email and cc-ed to Healey
+I successfully reproduce the reverse proxy PR and tested my fixed image. The results showed the fix works as we expected. However, a comprehensive testing is needed.
+Here is a summary of what I did and some conclusions I reached from my test results.
+1.       Using script to send https traffic using openssl from client to server with different size of keys (4096bit, 2048bit, and 1024bit)
+2.       Use correct key and wrong key alternatively to watch the security performance of fpc 10 and fpc 7
+3.       Since this PR branch use xlr hardware to do the decryption for key size less than 4096. We expect the CPU usage is approximate 0, this is true for correct key, it is not the case for wrong key. (highlight in second and third figure attached). For wrong keys, CPU usage is increased. This is due to the software decryption. Comparing 2048 wrong key case with the 1024 wrong key case, we can see the CPU usage is proportional to the key size. For larger wrong key size, the CPU usage is higher.
+4.       Our solution is to skip the software decryption if the decryption is failed for the installed key (assume the failure is due to wrongly installed keys). We do this by introduce a simple flag bit for each key installed. For a particular key installed in DUT, if the first decryption is failed, it mark the flag bit as invalid. In next session, when we do the key lookup in hash table, we also check the flag bit for its validity. If it has marked as invalid, it should not call the decrypt function. For the correspond server, all the traffic will not be decrypted unless to install the correct key in DUT. The non decrypted sessions (packets) should be recorded by idp counters. Whereas in current distribution, it doesn’t record non decrypted packets which due to wrong key, the “non decrypted” counter only count the sessions doesn’t have key installed. This problem also resolved buy current fix.
+5.       The test results after the fix showed that the CPU usage is high for the first second and then dropped to 0. This indicate it tried to use the software to decrypt at the first time for the case of wrong key. When this session failed to decrypt, the key has been flagged as wrong. All the following sessions trying to connect to the server associated with the wrong key would go thorough without decryption.        
+6.       For key size of 4096, no matter the key is correct or not, it always use software to decrypt. In the PR branch, the two cases are both CPU intensive (first figure attached). After the fixed. When the key is wrong, the CPU usage is 0 except during the first decryption.
+7.       A side note is the throughput is really low for a key size larger than 2048. For some strong encryption use case, it need to be improved.
+ 
+Attached you’ll find the diff files and command line output I recorded for reproducing the PR and test the solution.
+ 
+Regards,
+Rui
+
+
+Thursday, July 25, 2013
+
+
+
+
+Test plan: 
+install the 1024 correct key
+show idp counters
+start openssl with the wrong key
+show security monitoring performance spu
+show security monitoring fpc 10
+show security monitoring fpc 7
+stope openssl
+show idp counters
+start openssl with the correct key
+show security monitoring performance spu
+show security monitoring fpc 10
+show security monitoring fpc 7
+stop openssl
+show idp counters
+do this for the 2048 correct key and 4096 correct key
+
+
+Performance
+	4096 wrong key
+	4096 correct key
+	spu
+	high (80~90%), intermittent 
+	high (80~90%), intermittent
+	fpc 7
+	lower(60-85%), intermittent 
+	hightest=85%, intermittent, less frequently stay high.
+	fpc 10
+	high(80~95%), intermittent, (CPU= 98% happens)
+	hightest=85%, intermittent,
+	
+
+
+
+For large key size, the traffic is slow, when the key is wrong, the first few is slow, but after the key has been marked, even it is a large size key, it still very fast (scroll in the command line). this validate my solutions.
+
+
+=====================================================================
+New modification of the code for the new check branch:
+define the key_valid flag in: /b/ruihan/DEV_SRX_12Q1_X44D15_PR_BRANCH/src/idp/idp/pfe/control/pki/include/sc_rsa_key_mgt.h
+1. add member “sc_unit_t key_valid” to the struct sc_ssl_server_hash_val_s 
+
+
+initial the key_valid flag in server in construct_server_hash() function in:
+/b/ruihan/DEV_SRX_12Q1_X44D15_PR_BRANCH/src/idp/idp/pfe/control/pki/src/sc_rsa_key_mgt.c
+1. add the define of RSA_KEY_VALID = 1 which means default is correct.
+2. add line “val.key_valid = RSA_KEY_VALID” 
+
+
+Mark the invalid key if the decryption is failed:
+When look up the key in hash table, also check the key validation
+/b/ruihan/DEV_SRX_12Q1_X44D15_PR_BRANCH/src/idp/idp/pfe/engine/pki/src/sc_rsa_key.c
+1. add the check of the key_valid
+2. add flag part, valp->key_valid = 0, 
+
+
+=====================================================================
+Conclusion for the re-produce of the PR:
+1. For 4096 bits key, it doesn’t use xlr to decrypt,  For smaller key, all use xlr to decrypt. 
+2. If the key installed in wrong key, the non decrypted counters doesn’t show.
+3. I also noticed that when the key size is large such as 4096, the ssl session is slowed down. when key size is equal to 1024, it really fast.
+4. 
+
+
+
+Performance
+	4096 wrong key
+	4096 correct key
+	spu
+	high (80~90%), intermittent 
+	high (80~90%), intermittent
+	fpc 7
+	lower(60-85%), intermittent 
+	hightest=85%, intermittent, less frequently stay high.
+	fpc 10
+	high(80~95%), intermittent, (CPU= 98% happens)
+	hightest=85%, intermittent,
+	
+
+
+
+Performance
+	2048 wrong key
+	2048 correct key
+	spu
+	high (10~30%), intermittent 
+	all 0
+	fpc 7
+	(10~30%), intermittent, lighter
+
+
+	all 0
+	fpc 10
+	(10-30%), maintained,
+	all 0
+	
+
+
+
+Performance
+	1024 wrong key
+	1024 correct key
+	spu
+	low (1~3%), maintained
+	all 0
+	fpc 7
+	low(1~3%), intermittent
+	all 0
+	fpc 10
+	low(1~3%), maintained
+	all 0
+	
+
+the different images are at 
+/cf/pakcages
+and
+/jail/var 
+
+
+
+
+
+
+
+
+
+
+Wednesday, July 24, 2013
+Following bugs need to fix
+1. add the “sessions not decrypted: installed wrong key”
+2.  
+
+
+The reason of not reproducing the problem is that I am not using the correct version of the code !!!
+
+
+
+
+Monday, July 22, 2013
+
+
+the cases we should considering when modify the code.
+1. the admin installed the wrong key for the server ip
+   1. In this case, the info does not increase, only the new key increase and the Used XLR RSA SAE for Key Decryption
+1. the admin installed the redundant key (wrong or correct) for the server ip gives following error:
+   1. error: SSL server '5.0.0.1' already bound to key 'bianchi-severkey'
+Install the 2048 bytes RSA key
+
+
+
+
+
+
+request system software add image-name
+request security idp ssl-inspection key add <key-name> [file <file-path>] server <server-ip> [password <password-string>]
+Private key:
+openssl genrsa -out private.pem 1024
+
+
+Certificate Request::
+openssl req -new -key server.key -out server.csr
+
+
+Self signed Certificate: 
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+Thursday, July 18, 2013
+Code modified after talk to ping 
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/idp/pfe/control/pki/include/sc_rsa_key_mgt.h
+1. add member “sc_unit_t key_valid” to the struct sc_ssl_server_hash_val_s 
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/idp/pfe/control/pki/src/sc_rsa_key_mgt.c
+1. add the define of RSA_KEY_VALID = 1 which means default is correct.
+2. add line “val.key_valid = RSA_KEY_VALID” 
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/lib/pfe/ds/common/sc_khash_inl.h
+1. add the STATIC_INLINE function sc_khash_flag()
+2. didn’t add anything.
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/lib/pfe/ds/common/sc_khash_inl.h
+1. add the declaration of sc_khash_flag()
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/idp/pfe/engine/pki/src/sc_rsa_key.c
+1. add the check of the key_valid
+2. add flag part, not in a function, but very wired check the success of the flag using multiple ifs. 
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/lib/pfe/ds/src/sc_khash.c
+1. didn’t need to modify anything.
+
+
+67     STATIC_INLINE sc_int_t
+168     sc_khash_flag(const sc_khash_t* hp, const void* key, sc_unit_t keysz,
+169                   void** valp, sc_uint_t* valszp )
+170     {
+171         /*
+172          * Find the element first ( copy from sc_khash_find() )
+173          */
+174         sc_khash_element_t* elp;
+175
+176         /*
+177          * If there's no elements in the hash, return right away
+178          */
+179         if (!hp || ! hp->nelements)
+180             return -1;
+181
+182         elp = sc_khash_find(hp, key, keysz, (void **)(void *) &valp, $valsz);
+183         if (!elp || !(elp = elp->next))
+184             return -1;
+185         /*
+186          * set the val->key_valid to 0, which means invalid key
+187          */
+188         sc_khash_element_get(elp, 0, 0, valp, valszp);
+189         if(valp) {
+190             (*valp)->key_valid = 0;
+191             sc_kmemcpy(elp->data + alignsz(keysz), *valp, *valszp);
+192             return 0;
+193         else
+194             return -1;
+195     }
+
+
+
+
+
+
+
+
+Wednesday, July 17, 2013
+Code modified:
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/idp/pfe/control/pki/src/sc_rsa_key_mgt.c
+1. in the function sc_rsa_construct_server_hash() change sc_khash_insert() to sc_khash_insert_r1()
+2. add the define of RSA_KEY_VALID = 0 which means correct key.
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/lib/pfe/ds/common/sc_khash_inl.h
+1. add the member “sc_ushort_t key_valid” in the structure sc_khash_element_s{}
+2. add the definition of sc_khash_insert_r1(), inside it change calling sc_khash_internal_insert() to calling sc_khash_internal_insert_r1()
+3. add the definition of sc_khash_element_get_r1()
+4. add the definition of sc_khash_find_r1(), inside it call sc_khash_element_get_r1() with k_valid passing as an argument
+5. add the definition of STATIC_INLINE sc_khash_flag()
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/idp/pfe/engine/pki/src/sc_rsa_key.c
+1. add the calling of sc_khash_flag() after the RSA_private_decrypt() failed
+2. add the k_valid check part, if(!k_valid)...
+
+
+/b/ruihan/DEV_SBU_SECINTEL_BRANCH/src/idp/lib/pfe/ds/src/sc_khash.c
+1. add the sc_khash_internal_insert_r1(), inside it add the construct of the key_valid
+
+
+
+
+Tuesday, July 16, 2013
+Todos:
+1. working on the code and writing Kevin an email about the code.
+2. Identify the spot to modify
+Monday, July 15, 2013
+Todos:
+1. how to send ssl traffic 
+2. how to watch the tracepoint to debug
+3. Write the code for the first solution we mentioned
+
+
+openssl s_client -host 5.0.0.1 -port 443 -ssl3 -cipher AES128-SHA
+openssl s_server -accept 443 -cert ./bianchi-server.crt -key ./bianchi-serverkey.pem -ssl3 -no_dhe -debug -no_tmp_rsa -WWW -cipher AES128-SHA
+
+
+
+
+Tips for today:
+in system mode tnpdump to find the hardwares:
+
+
+root@bianchi% tnpdump
+   Name                TNPaddr   MAC address    IF     MTU E H R
+master                   0x1 02:00:00:00:00:04 em0    1500 0 0 3
+master                   0x1 02:00:01:00:00:04 em1    1500 0 1 3
+cpp0                     0x2 02:00:00:00:00:02 em0    1500 4 0 3
+re0                      0x4 02:00:00:00:00:04 em0    1500 0 0 3
+re0                      0x4 02:00:01:00:00:04 em1    1500 0 1 3
+fpc7.pic0              0x117 02:00:00:00:01:17 em0    1500 3 0 3
+fpc10.pic0             0x11a 02:00:00:00:01:1a em0    1500 3 0 3
+bcast             0xffffffff ff:ff:ff:ff:ff:ff em0    1500 0 0 3
+bcast             0xffffffff ff:ff:ff:ff:ff:ff em1    1500 0 1 3
+
+
+check the card log using the following command
+
+
+root@bianchi% vty fpc10.pic0
+
+
+then copy the debug setting text from file: (usp_debug_set.txt)
+
+
+[flowd64]FPC10.PIC0(vty)# show usp flow trace 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ How do I verify that a private key matches its Certificate?    [L]
+The private key contains a series of numbers. Two of those numbers form the "public key", the others are part of your "private key". The "public key" bits are also embedded in your Certificate (we get them from your CSR). To check that the public key in your cert matches the public portion of your private key, you need to view the cert and the key and compare the numbers. To view the Certificate and the key run the commands:
+$ openssl x509 -noout -text -in server.crt
+$ openssl rsa -noout -text -in server.key
+The `modulus' and the `public exponent' portions in the key and the Certificate must match. But since the public exponent is usually 65537 and it's bothering comparing long modulus you can use the following approach:
+$ openssl x509 -noout -modulus -in server.crt | openssl md5
+$ openssl rsa -noout -modulus -in server.key | openssl md5
+And then compare these really shorter numbers. With overwhelming probability they will differ if the keys are different. BTW, if I want to check to which key or certificate a particular CSR belongs you can compute
+$ openssl req -noout -modulus -in server.csr | openssl md5
+
+
+/etc/httpd/conf/httpd.conf.rpmsave
+OpenSSL Command-Line HOWTO
+http://www.madboa.com/geek/openssl/
+Friday, July 12, 2013
+Todos:
+1. config the dut.
+2. how to send  ssl traffic
+3. watch the tracepoint of runnig the jnous
+Thursday, July 11, 2013
+Ping’s tips about setup the testing senario
+file a ticket to connect the port in the lab.
+set the VLAN for those @bianchi  @bianchi-victim and @bianchi-attacker
+ping through the networks. each machin can reach others for the specific ports(for the dut)
+ 
+
+
+Tuesday, July 9, 2013
+See the previous days’ work
+1. I need to identify the function that involving installation of keys and key abstraction 
+
+
+Key management
+You first have a set of keys.
+
+
+how exactally the admin install the keys?
+
+
+SSL decryption and encryption
+sc_ssl_func.c → 
+Monday, July 8, 2013
+Three solutions I need to fix the ssl RP
+Test devices (natish)
+code access (see the email)
+1. ping’s simple method: first decrypt session, if not work properly, flag the key as bad key. future decryption will not use it anymore.
+2. install both private and public key, check pub key match
+3. using cryptographic method to match private key to public key to detect whether the keys match or not.
+Todo at this moments:
+1. understand the key structures and the hash table holding the keys
+   1. sc_rsa_key.c
+
+
+   1. sc_rsa_key_mgt.c define the ssl key construction and installations
+        ./src/idp/idp/pfe/control/pki/src/
+sc_rsa_key_mgt.h define the key-server(key-server-port)data structures 
+./src/idp/idp/pfe/control/pki/include/
+   1. sc_khash_inl.h define the hash table data structures
+./src/idp/lib/pfe/ds/common/
+sc_khash.c define the hash operations and list operations.
+(./src/idp/lib/pfe/ds/src/sc_khash.c)?
+        (./src/idp/idp/lib/ds/src/sc_khash.c)?
+sc_khash.h ./src/idp/lib/pfe/ds/common/sc_khash.h
+
+
+1. write your own hash table for the flag purpose only
+   1. hash table should construct as admin install keys
+   2. should query the new hash table when try to decrypt
+   3. should update when decrypt unsuccessfully
+ 
+
+
+
+
+Tuesday, June 25, 2013
+the problem is to get the public key from server certificate and also put into the hash table in the SRX box. So it can detect and warn the Admin, it has an invalid key.
+Todos:
+1. Write code to extract server public key from the handshake message.
+2. come up a mechanism that use this public key to detect the private key. 
+
+
+I need to do those things first:
+how the certificate structured(wireshark)
+
+
+Monday, June 24, 2013
+Ping’s tips from his email:
+FS (Reverse Proxy function specifics)
+http://cvs.juniper.net/cgi-bin/viewcvs.cgi/*checkout*/sw-projects/usp/specs/funcspecs/idp/idp-jsf-ssl-fs.txt
+ 
+TP(Reverse Proxy testing plans)
+http://cvs.juniper.net/cgi-bin/viewcvs.cgi/sw-projects/usp/specs/unit-tests/idp/idp-jsf-ssl-utp.txt?rev=1.1&view=log
+
+
+PR: https://gnats.juniper.net/web/default/821189
+
+
+
+
+Hi Rui,
+ 
+The attached document is how to setup testing env and testing setting on vty.
+ 
+To find out the running fpc you can use command “tnpdump” under system mode (the mode you just login)
+Also the log file will be found under /var/log, and /var/tmp.
+You can define the trace_file by command:
+ ls
+
+
+set security idp traceoptions file your_trace_file
+set security idp traceoptions flags all
+set security idp traceoptions level all
+
+
+
+
+
+
+problematic code is in the line 508 in the source 
+xref: /JUNOS-2009/idp/idp/pfe/engine/pki/src/sc_rsa_key.c
+
+
+openssl lab by seed program
+http://www.cis.syr.edu/~wedu/seed/Labs/Crypto/Crypto_PublicKey/Crypto_PublicKey.pdf
+openssl api and code:
+http://www.rtfm.com/openssl-examples/
+introduction to openssl command:
+http://users.dcc.uchile.cl/~pcamacho/tutorial/crypto/openssl/openssl_intro.html
+Command in the pinarello box:
+1. show security idp ssl-inspection key
+2. show security idp counters ssl-inspection
+3. request security idp ssl-inspection key ?
+4. show security idp counters ssl-inspection
+links for the codes and documents
+forward proxy specifics 
+http://cvs.juniper.net/cgi-bin/viewcvs.cgi/sw-projects/jsf/specs/
+http://cvs.juniper.net/cgi-bin/viewcvs.cgi/*checkout*/sw-projects/jsf/specs/jsf_ssl.txt?rev=1.11
+
+
+
+
+https://opengrok.juniper.net/source/ →  Source code
+ 
+http://labdir.spg.juniper.net/  → Lab device management
+ 
+https://gnats.juniper.net/web/default/ → PR management
+ 
+http://cvs.juniper.net/cgi-bin/viewcvs.cgi/sw-projects/usp/specs/funcspecs/SecIntel/ →Documents
+ 
+http://leo1.juniper.net/jasmine/project/rod.php?task=selfserve → RoD (Automation test)
+ 
+https://deepthought.juniper.net/app/
+
+
+ssh yima@svl-junos-d018
+ssh yima@svl-junos-d019
+
+
+Create a sandbox from the latest repository state
+$ mksb –n latest
+Create a sandbox from a particular release tag
+$ mksb –n throttle92 –r RELEASE_92_THROTTLE
+Create a sandbox from a particular GRN number
+$ mksb –n junos_10r1 –r JUNOS_10R1_RELEASE SVN_REVISION=220033
+
+
+mksb -n <name> -r DEV_X_12Q1_SRX_BRANCH
+mksb -n <name> -r DEV_X_12Q1_SRX_BRANCH
+ 
+mksb -n DEV_SBU_SECINTEL_BRANCH -r DEV_SBU_SECINTEL_BRANCH
+make a image:
+ 
+to make a image for different platform:
+ 
+for branch:
+mk-octeon  -j 10 srxsme
+ 
+for middle range(1k3k)
+mk-powerpc  -j 10 srx1k3k
+
+
+for highend:
+mk –j 10 srx5000
+
+
+
+
+
+
+
+
+Friday, June 21, 2013
+Todos:
+1. Certificate
+2. 2 PPT about forward proxy
+3. Try using wireshark and Openssl
+4. Try run a lab experiment by the course. (at IIT and Seed project lab)
+In reverse proxy, server is protected. Forward proxy is to protect entrepreneurial environment. Reverse proxy is from internet to server side, the proxy get the private key of the server and try to get the pre-master secret together with the server and client.
+
+
+the problem now is lack of the matching of the private key and public key of the two. that is to find the right key and then decrypt the packets.
+
+
+Thursday, June 20, 2013
+questions:
+* 2.6.1.14 SSL Proxy Policy Plugin
+* relevant profile id to them by means of shared cookie
+* ssl renegotiation 
+* 2.7.1 SSL Termination profile configuration take several parameters
+* 2.7.2 SSL Initiation profile configuration take several parameters
+* * 
+
+
+
+Digital signature:
+
+
+Why: To ensure sender cannot deny having sent the message (authentication and non-repudiation) and that the message was not altered in transit
+How: Bob use his private key to encrypt his message or hash(message) to produce the signature, send it with his message to Alice.
+
+
+Alice take the encrypted signature and using Bob’s public key to decrypt it to produce a message or hash(message), comparing to the message sent together or the hash(message)with the decrypted data, if equal, the message has been sent by bob originally. 
+
+
+Explain: 
+1) ensure cannot deny. Because public key is unique to Bob and only Bob can use his own private key to encrypt
+
+
+Wednesday, June 19, 2013
+Reading chapter 3 and chapter 4, making notes for those chapters and write down the questions that doesn’t understand.
+
+
+Qutestion:
+
+
+Tuesday, June 18, 2013
+Reading the chapter 1 and chapter 2 and making the note about the reading.
+
+
+Monday, June 17, 2013
+Switch to a new project working in SSL.
+It is a problem exist in the SRX product with key checking in the proxy.
+
+
+Todos:
+1. reading the ssl book
+2. play with openssh
+3. play with wireshark
+
+
+   
+
+
+
+
+
+
+Tuesday, June 4, 2013
+Todos:
+1. working on MongoDB SSL
+2. Reading the data feeds specific again to understand the data formats
+3. working on Pymongo, get familiar with all the APIs
+4. working on Python module coding
+
+
+Notes:
+MongoDB SSL need recompile with SSL option enabled, micro instnace on EC2 run out of memory.
+
+
+Question:
+1. how to understand the pull updates and push update? Does Oscar mentioned is equal to what I should do, I can connect the database directly, (at most using SSL), should I use REST? 
+2. Should IP rang, IP/subnet, and IP list be stored as original format as user input, or each IP in the rang/subnet/list stored separately?  For example, when user input ip_range from the web UI, which one of the following is the best format to store in Mongodb? (In order to be easily queried and updated).
+IP_range1 = {
+ip_range: “188.166.0.0,5”,    /* a single IP range */
+}
+ 
+IP_range2 = {
+Ip_adress:  [188.166.0.0, 188.166.0.1, 188.166.0.2, 188.166.0.3, 188.166.0.4]
+                    /* a list of IP adresses */
+}
+1. How to distinct the TL for IPs in a certain range if the TLs are not the same one.
+ 
+
+
+How to distinct the TL for IPs in a certain range
+ 
+
+
+
+
+Extra work I can do during day:
+1. Git set up for all the tasks:
+   1. algorithms, 
+   2. juniper works,
+   3. qual exam review
+1. Learning Python: 
+2. learn vim and diff tools
+3. sharp my knife for future productivity
+4.

@@ -1,0 +1,94 @@
+regress@gharvi> show configuration | display set | except group | no-more 
+set version "12.1I0 [slt-builder]"
+set system ports console log-out-on-disconnect
+set interfaces xe-0/0/0 unit 0 family inet address 11.1.1.1/8
+set interfaces xe-0/1/0 unit 0 family inet address 151.1.1.1/8
+set security idp idp-policy Recommended rulebase-ips rule 1 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 1 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 1 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 1 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 1 match application default
+set security idp idp-policy Recommended rulebase-ips rule 1 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 1 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 1 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 2 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 2 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 2 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 2 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 2 match application default
+set security idp idp-policy Recommended rulebase-ips rule 2 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 2 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 2 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 3 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 3 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 3 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 3 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 3 match application default
+set security idp idp-policy Recommended rulebase-ips rule 3 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 3 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 3 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 4 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 4 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 4 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 4 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 4 match application default
+set security idp idp-policy Recommended rulebase-ips rule 4 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 4 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 4 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 5 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 5 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 5 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 5 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 5 match application default
+set security idp idp-policy Recommended rulebase-ips rule 5 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 5 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 5 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 6 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 6 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 6 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 6 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 6 match application default
+set security idp idp-policy Recommended rulebase-ips rule 6 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 6 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 6 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 7 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 7 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 7 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 7 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 7 match application default
+set security idp idp-policy Recommended rulebase-ips rule 7 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 7 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 7 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 8 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 8 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 8 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 8 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 8 match application default
+set security idp idp-policy Recommended rulebase-ips rule 8 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 8 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 8 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp idp-policy Recommended rulebase-ips rule 9 match from-zone any
+set security idp idp-policy Recommended rulebase-ips rule 9 match source-address any
+set security idp idp-policy Recommended rulebase-ips rule 9 match to-zone any
+set security idp idp-policy Recommended rulebase-ips rule 9 match destination-address any
+set security idp idp-policy Recommended rulebase-ips rule 9 match application default
+set security idp idp-policy Recommended rulebase-ips rule 9 then action recommended
+set security idp idp-policy Recommended rulebase-ips rule 9 then notification log-attacks
+set security idp idp-policy Recommended rulebase-ips rule 9 match attacks predefined-attacks APP:APPLE-SIRI
+set security idp active-policy Recommended
+set security idp sensor-configuration detector protocol-name SSL tunable-name sc_ssl_flags tunable-value 1
+set security idp sensor-configuration ssl-inspection sessions 100000
+set security policies from-zone trust to-zone untrust policy policy1 match source-address any
+set security policies from-zone trust to-zone untrust policy policy1 match destination-address any
+set security policies from-zone trust to-zone untrust policy policy1 match application any
+set security policies from-zone trust to-zone untrust policy policy1 then permit application-services idp
+set security policies from-zone untrust to-zone trust policy policy2 match source-address any
+set security policies from-zone untrust to-zone trust policy policy2 match destination-address any
+set security policies from-zone untrust to-zone trust policy policy2 match application any
+set security policies from-zone untrust to-zone trust policy policy2 then permit application-services idp
+set security zones security-zone trust host-inbound-traffic system-services all
+set security zones security-zone trust host-inbound-traffic protocols all
+set security zones security-zone trust interfaces xe-0/1/0.0
+set security zones security-zone untrust host-inbound-traffic system-services all
+set security zones security-zone untrust host-inbound-traffic protocols all
+set security zones security-zone untrust interfaces xe-0/0/0.0

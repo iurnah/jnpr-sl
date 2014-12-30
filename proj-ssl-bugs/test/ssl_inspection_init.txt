@@ -1,0 +1,418 @@
+delete security idp
+delete groups global security zones security-zone HOST interfaces all
+delete security zones
+delete interfaces
+delete system syslog file messages
+delete security policies
+set system syslog file messages user any
+set system syslog file messages any any
+run request security idp security-package download full-update
+run request security idp security-package install
+run request security idp security-package install status
+delete system security-profile
+delete logical-systems
+set interfaces ge-0/0/0 unit 0 family inet address 4.0.0.254/8
+set routing-options static route 6.0.0.0/8 next-hop 4.0.0.1
+set security zones security-zone untrust interfaces ge-0/0/0
+set security zones security-zone untrust interfaces ge-0/0/0 host-inbound-traffic system-services ping
+set interfaces ge-0/0/1 unit 0 family inet address 5.0.0.254/8
+set routing-options static route 7.0.0.0/8 next-hop 5.0.0.1
+set security zones security-zone trust interfaces ge-0/0/1
+set security zones security-zone trust interfaces ge-0/0/1 host-inbound-traffic system-services ping
+delete security policies
+set security policies from-zone trust to-zone untrust policy 1 match source-address any
+set security policies from-zone trust to-zone untrust policy 1 match destination-address any
+set security policies from-zone trust to-zone untrust policy 1 match application any
+set security policies from-zone trust to-zone untrust policy 1 then permit application-services idp
+set security policies from-zone untrust to-zone trust policy 1 match source-address any
+set security policies from-zone untrust to-zone trust policy 1 match destination-address any
+set security policies from-zone untrust to-zone trust policy 1 match application any
+set security policies from-zone untrust to-zone trust policy 1 then permit application-services idp
+
+root@bianchi# edit security idp idp-policy 1 rulebase-ips 
+=================================================================================================
+root@bianchi# set security idp ?
+Possible completions:
+> idp-policy           Configure IDP policy
+> custom-attack        Configure custom attacks
+> custom-attack-group  Configure custom attack groups
+> dynamic-attack-group  Configure dynamic attack groups
+> application-ddos     Configure an aplication based distributed denial of service
+> traceoptions         Trace options for idp services
+> security-package     Security package options
+> sensor-configuration  IDP Sensor Configuration
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+  active-policy        Set active policy
+[edit]
+root@bianchi# set security idp idp-policy ?
+Possible completions:
+  <policy-name>        IDP policy name
+[edit]
+root@bianchi# set security idp idp-policy 1 ?
+Possible completions:
+  <[Enter]>            Execute this command
+> rulebase-ddos        DDOS rulebase
+> rulebase-exempt      Exempt rulebase
+> rulebase-ips         IPS rulebase
+  |                    Pipe through a command
+[edit]
+root@bianchi# edit security idp idp-policy 1 rulebase-ips
+
+[edit security idp idp-policy 1 rulebase-ips]
+root@bianchi# set ?
+Possible completions:
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> rule                 Configure IPS rule
+[edit security idp idp-policy 1 rulebase-ips]
+root@bianchi# edit rule 1 ?
+Possible completions:
+  <[Enter]>            Execute this command
+> match                Rule match criteria
+> then
+  |                    Pipe through a command
+[edit security idp idp-policy 1 rulebase-ips]
+root@bianchi# edit rule 1
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match ?
+Possible completions:
+  application          Specify application or application-set name to match
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> attacks              Match attack objects
++ destination-address  Match destination address
++ destination-except   Don't match destination address
+  from-zone            Match from zone
++ source-address       Match source address
++ source-except        Don't match source address
+  to-zone              Match to zone
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match source-address ?
+Possible completions:
+  <address>            Address from address book
+  [                    Open a set of values
+  any                  Any IPv4 and IPv6 address
+  any-ipv4             Any IPv4 address
+  any-ipv6             Any IPv6 address
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match source-address any ?
+Possible completions:
+  <[Enter]>            Execute this command
+  application          Specify application or application-set name to match
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> attacks              Match attack objects
++ destination-address  Match destination address
++ destination-except   Don't match destination address
+  from-zone            Match from zone
++ source-address       Match source address
++ source-except        Don't match source address
+  to-zone              Match to zone
+  |                    Pipe through a command
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match source-address any
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set ?
+Possible completions:
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+  description          Rule description
+> match                Rule match criteria
+  terminal             Set/Unset terminal flag
+> then
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match in
+                          ^
+syntax error.
+root@bianchi# set match ?
+Possible completions:
+  application          Specify application or application-set name to match
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> attacks              Match attack objects
++ destination-address  Match destination address
++ destination-except   Don't match destination address
+  from-zone            Match from zone
++ source-address       Match source address
++ source-except        Don't match source address
+  to-zone              Match to zone
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match destination-address any
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set appli
+                  ^
+syntax error.
+root@bianchi# set appl?
+Possible completions:
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set ?
+Possible completions:
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+  description          Rule description
+> match                Rule match criteria
+  terminal             Set/Unset terminal flag
+> then
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match ?
+Possible completions:
+  application          Specify application or application-set name to match
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> attacks              Match attack objects
++ destination-address  Match destination address
++ destination-except   Don't match destination address
+  from-zone            Match from zone
++ source-address       Match source address
++ source-except        Don't match source address
+  to-zone              Match to zone
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match application ?
+Possible completions:
+  <application>
+  any                  Match all ports to the only application implied in the attack objects
+  default              Match default and automatically detected ports to the applications implied in the attack objects
+  junos-aol            [applications application <*>]
+  junos-bgp            [applications application <*>]
+  junos-biff           [applications application <*>]
+  junos-bootpc         [applications application <*>]
+  junos-bootps         [applications application <*>]
+  junos-chargen        [applications application <*>]
+  junos-cifs           [applications application-set <*>]
+  junos-cvspserver     [applications application <*>]
+  junos-dhcp-client    [applications application <*>]
+  junos-dhcp-relay     [applications application <*>]
+  junos-dhcp-server    [applications application <*>]
+  junos-discard        [applications application <*>]
+  junos-dns-tcp        [applications application <*>]
+  junos-dns-udp        [applications application <*>]
+  junos-echo           [applications application <*>]
+  junos-finger         [applications application <*>]
+  junos-ftp            [applications application <*>]
+  junos-gnutella       [applications application <*>]
+  junos-gopher         [applications application <*>]
+  junos-gprs-gtp       [applications application-set <*>]
+  junos-gprs-gtp-c     [applications application <*>]
+  junos-gprs-gtp-c-tcp  [applications application <*>]
+  junos-gprs-gtp-c-udp  [applications application <*>]
+  junos-gprs-gtp-u     [applications application <*>]
+  junos-gprs-gtp-u-tcp  [applications application <*>]
+  junos-gprs-gtp-u-udp  [applications application <*>]
+  junos-gprs-gtp-v0    [applications application <*>]
+  junos-gprs-gtp-v0-tcp  [applications application <*>]
+  junos-gprs-gtp-v0-udp  [applications application <*>]
+  junos-gprs-sctp      [applications application <*>]
+  junos-gre            [applications application <*>]
+  junos-h323           [applications application <*>]
+  junos-http           [applications application <*>]
+  junos-http-ext       [applications application <*>]
+  junos-https          [applications application <*>]
+  junos-icmp-all       [applications application <*>]
+  junos-icmp-ping      [applications application <*>]
+  junos-icmp6-all      [applications application <*>]
+  junos-icmp6-dst-unreach-addr  [applications application <*>]
+  junos-icmp6-dst-unreach-admin  [applications application <*>]
+  junos-icmp6-dst-unreach-beyond  [applications application <*>]
+  junos-icmp6-dst-unreach-port  [applications application <*>]
+  junos-icmp6-dst-unreach-route  [applications application <*>]
+  junos-icmp6-echo-reply  [applications application <*>]
+  junos-icmp6-echo-request  [applications application <*>]
+  junos-icmp6-packet-to-big  [applications application <*>]
+  junos-icmp6-param-prob-header  [applications application <*>]
+  junos-icmp6-param-prob-nexthdr  [applications application <*>]
+  junos-icmp6-param-prob-option  [applications application <*>]
+  junos-icmp6-time-exceed-reassembly  [applications application <*>]
+  junos-icmp6-time-exceed-transit  [applications application <*>]
+  junos-ident          [applications application <*>]
+  junos-ike            [applications application <*>]
+  junos-ike-nat        [applications application <*>]
+  junos-imap           [applications application <*>]
+  junos-imaps          [applications application <*>]
+  junos-internet-locator-service  [applications application <*>]
+  junos-irc            [applications application <*>]
+  junos-l2tp           [applications application <*>]
+  junos-ldap           [applications application <*>]
+  junos-ldp-tcp        [applications application <*>]
+  junos-ldp-udp        [applications application <*>]
+  junos-lpr            [applications application <*>]
+  junos-mail           [applications application <*>]
+  junos-mgcp           [applications application-set <*>]
+  junos-mgcp-ca        [applications application <*>]
+  junos-mgcp-ua        [applications application <*>]
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match application any ?
+Possible completions:
+  <[Enter]>            Execute this command
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> attacks              Match attack objects
++ destination-address  Match destination address
++ destination-except   Don't match destination address
+  from-zone            Match from zone
++ source-address       Match source address
++ source-except        Don't match source address
+  to-zone              Match to zone
+  |                    Pipe through a command
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set match application any
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi#
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set then ?
+Possible completions:
+> action
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> ip-action
+> notification         Configure notification/logging options
+  severity             Set rule severity level
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set then action ?
+Possible completions:
+> class-of-service     Classification of traffic based on class-of-service
+  no-action            No action
+  ignore-connection    Ignore
+  drop-packet          Drop packet
+  drop-connection      Drop connection
+  close-client         Close client
+  close-server         Close server
+  close-client-and-server  Close client and server
+  recommended          Recommended
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# set then action no-action
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# commit
+commit complete
+
+[edit security idp idp-policy 1 rulebase-ips rule 1]
+root@bianchi# top
+
+[edit]
+root@bianchi# set idp
+                  ^
+syntax error.
+root@bianchi# set ?
+Possible completions:
+> access               Network access configuration
+> access-profile       Access profile for this instance
+> accounting-options   Accounting data configuration
+> applications         Define applications by protocol characteristics
++ apply-groups         Groups from which to inherit configuration data
+> bridge-domains       Bridge domain configuration
+> chassis              Chassis configuration
+> class-of-service     Class-of-service configuration
+> event-options        Event processing configuration
+> firewall             Define a firewall configuration
+> forwarding-options   Configure options to control packet forwarding
+> groups               Configuration groups
+> interfaces           Interface configuration
+> jsrc                 JSRC partition configuration
+> jsrc-partition       JSRC partition configuration
+> logical-systems      Logical systems
+> multi-chassis
+> policy-options       Policy option configuration
+> protocols            Routing protocol configuration
+> routing-instances    Routing instance configuration
+> routing-options      Protocol-independent routing option configuration
+> schedulers           Security scheduler
+> security             Security configuration
+> services             Set services parameters
+> snmp                 Simple Network Management Protocol configuration
+> system               System parameters
+[edit]
+root@bianchi# set security idp ?
+Possible completions:
+> idp-policy           Configure IDP policy
+> custom-attack        Configure custom attacks
+> custom-attack-group  Configure custom attack groups
+> dynamic-attack-group  Configure dynamic attack groups
+> application-ddos     Configure an aplication based distributed denial of service
+> traceoptions         Trace options for idp services
+> security-package     Security package options
+> sensor-configuration  IDP Sensor Configuration
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+  active-policy        Set active policy
+[edit]
+root@bianchi# set security idp active-policy ?
+Possible completions:
+  <active-policy>      Set active policy
+  1
+[edit]
+root@bianchi# set security idp active-policy 1
+
+[edit]
+root@bianchi# commit
+commit complete
+
+[edit]
+root@bianchi# show security idp
+idp-policy 1 {
+    rulebase-ips {
+        rule 1 {
+            match {
+                source-address any;
+                destination-address any;
+                application any;
+            }
+            then {
+                action {
+                    no-action;
+                }
+            }
+        }
+    }
+}
+active-policy 1;
+security-package {
+    url https://sidp-sigdb.secteam.juniper.net/cgi-bin/index.cgi;
+}
+sensor-configuration {
+    ssl-inspection {
+        sessions 100;
+    }
+}
+
+[edit]
+root@bianchi# exit
+Exiting configuration mode
+
+root@bianchi> show security idp counters ssl-i \
+                                               ^
+syntax error.
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       0
+ Sessions Decrypted                                                      0
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        0
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            0
+ Sessions - Error when XLR RSA SAE used                                  0
+

@@ -1,0 +1,1330 @@
+root@bianchi# run show security idp security-package-version
+  Attack database version:721(Mon Oct  1 14:09:03 2012)
+  Detector version :12.6.140121001
+  Policy template version :N/A
+
+[edit]
+root@bianchi# ...tch attacks predefined-attacks FTP:USER:ROOT
+
+[edit]
+root@bianchi# ...le 1 tj
+                      ^
+syntax error.
+root@bianchi# ...le 1 thj
+                      ^
+syntax error.
+root@bianchi# ...le 1 then action no-action
+
+[edit]
+root@bianchi# set security idp active-policy idpengine
+
+[edit]
+root@bianchi# show security idp
+idp-policy idpengine {
+    rulebase-ips {
+        rule 1 {
+            match {
+                attacks {
+                    predefined-attacks FTP:USER:ROOT;
+                }
+            }
+            then {
+                action {
+                    no-action;
+                }
+            }
+        }
+    }
+}
+active-policy idpengine;
+
+[edit]
+root@bianchi# ste
+              ^
+unknown command.
+root@bianchi# set security idp sensor-configuration ?
+Possible completions:
+> log                  IDP Log Configuration
+> packet-log           IDP Packetlog Configuration
+> application-identification  Application identification
+> flow                 Flow configuration
+> re-assembler         Re-assembler configuration
+> ips                  Ips configuration
+> global               Global configuration
+> detector             Detector Configuration
+> ssl-inspection       SSL inspection
+> application-ddos     Application DDoS sensor configuration
+> high-availability    High availability configuration
+[edit]
+root@bianchi# set security idp sensor-configuration ssl-inspection ?
+Possible completions:
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+  cache-prune-chunk-size  Number of cache entries to delete when pruning SSL session ID cache
+  key-protection       Enable SSL key protection
+  maximum-cache-size   Maximum SSL session ID cache size (sessions)
+  session-id-cache-timeout  Timeout value for SSL session ID cache (seconds)
+  sessions             Number of SSL sessions to inspect (1..100000)
+[edit]
+root@bianchi# ...r-configuration ssl-inspection sessions ?
+Possible completions:
+  <sessions>           Number of SSL sessions to inspect (1..100000)
+[edit]
+root@bianchi# ...r-configuration ssl-inspection sessions 1000
+
+[edit]
+root@bianchi# commit
+[edit security idp idp-policy idpengine rulebase-ips rule 1 match attacks]
+  'predefined-attacks FTP:USER:ROOT'
+    Attack FTP:USER:ROOT: Security package license is needed to use this attack
+error: configuration check-out failed
+
+[edit]
+root@bianchi# run show chassis hardware
+Hardware inventory:
+Item             Version  Part number  Serial number     Description
+Chassis                                AB1808AC9875      SRX 3600
+Midplane         REV 01   710-020310   TV9875            SRX 3600 Midplane
+PEM 2            rev 06   740-020226   E182C1004N06P     AC Power Supply
+PEM 3            rev 06   740-020226   E182C1002U06P     AC Power Supply
+CB 0             REV 01   750-021914   TV2768            SRX3k RE-12-10
+  Routing Engine          BUILTIN      BUILTIN           Routing Engine
+  CPP                     BUILTIN      BUILTIN           Central PFE Processor
+  Mezz           REV 01   710-021035   TV2694            SRX HD Mezzanine Card
+FPC 0            REV 01   750-021882   TV2312            SRX3k SFB 12GE
+  PIC 0                   BUILTIN      BUILTIN           8x 1GE-TX 4x 1GE-SFP
+    Xcvr 8       REV 01   740-013111   70174026          SFP-T
+FPC 7            REV 11   750-016077   AAAW2631          SRX3k SPC
+  PIC 0                   BUILTIN      BUILTIN           SPU Cp-Flow
+FPC 10           REV 11   750-016077   AAAW2620          SRX3k SPC
+  PIC 0                   BUILTIN      BUILTIN           SPU Flow
+FPC 12           REV 02   750-017866   TV2877            SRX3k NPC
+  PIC 0                   BUILTIN      BUILTIN           NPC PIC
+Fan Tray 0       REV 01   750-021599   TV5757            SRX 3600 Fan Tray
+
+[edit]
+root@bianchi# ruh
+              ^
+unknown command.
+root@bianchi# run show version
+Hostname: bianchi
+Model: srx3600
+JUNOS Software Release [12.1I20121020_0015_png]
+
+[edit]
+root@bianchi# exit
+The configuration has been changed but not committed
+Exit with uncommitted changes? [yes,no] (yes) no
+
+Exit aborted
+
+[edit]
+root@bianchi# commit
+commit complete
+
+[edit]
+root@bianchi# exit
+Exiting configuration mode
+
+root@bianchi> show system license
+License usage:
+                                 Licenses     Licenses    Licenses    Expiry
+  Feature name                       used    installed      needed
+  idp-sig                               0            1           0    2014-07-08 17:00:00 PDT
+  appid-sig                             0            1           0    2015-07-31 17:00:00 PDT
+  logical-system                        1           32           0    permanent
+
+Licenses installed:
+  License identifier: JUNOS257442
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    appid-sig        - APPID Signature
+      date-based, 2010-05-19 17:00:00 PDT - 2011-06-30 17:00:00 PDT
+
+  License identifier: JUNOS278883
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    idp-sig          - IDP Signature
+      date-based, 2010-10-26 17:00:00 PDT - 2011-10-26 17:00:00 PDT
+
+  License identifier: JUNOS320353
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    idp-sig          - IDP Signature
+      date-based, 2011-06-29 17:00:00 PDT - 2011-10-26 17:00:00 PDT
+
+  License identifier: JUNOS327071
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    appid-sig        - APPID Signature
+      date-based, 2011-08-03 17:00:00 PDT - 2015-07-31 17:00:00 PDT
+
+  License identifier: JUNOS348537
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    logical-system-1 - Logical System Capacity
+      permanent
+
+  License identifier: JUNOS348538
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    logical-system-25 - Logical System Capacity
+      permanent
+
+  License identifier: JUNOS348539
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    logical-system-5 - Logical System Capacity
+      permanent
+
+  License identifier: JUNOS348540
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    idp-sig          - IDP Signature
+      date-based, 2011-10-31 17:00:00 PDT - 2012-10-30 17:00:00 PDT
+
+  License identifier: JUNOS348541
+  License version: 2
+  Valid for device: AB1808AC9875
+  Features:
+    idp-sig          - IDP Signature
+      date-based, 2011-10-31 17:00:00 PDT - 2012-10-31 17:00:00 PDT
+
+  License identifier: JUNOS348542
+
+root@bianchi> configure
+Entering configuration mode
+
+[edit]
+root@bianchi# show security idp
+idp-policy idpengine {
+    rulebase-ips {
+        rule 1 {
+            match {
+                attacks {
+                    predefined-attacks FTP:USER:ROOT;
+                }
+            }
+            then {
+                action {
+                    no-action;
+                }
+            }
+        }
+    }
+}
+active-policy idpengine;
+sensor-configuration {
+    ssl-inspection {
+        sessions 1000;
+    }
+}
+
+[edit]
+root@bianchi# show security idp | doi
+                                  ^
+syntax error, expecting <command>.
+root@bianchi# show security idp | did
+                                  ^
+syntax error, expecting <command>.
+root@bianchi# show security idp | display set
+set security idp idp-policy idpengine rulebase-ips rule 1 match attacks predefined-attacks FTP:USER:ROOT
+set security idp idp-policy idpengine rulebase-ips rule 1 then action no-action
+set security idp active-policy idpengine
+set security idp sensor-configuration ssl-inspection sessions 1000
+
+[edit]
+root@bianchi#
+
+[edit]
+root@bianchi# show security policies
+
+[edit]
+root@bianchi# run shgo
+                  ^
+syntax error, expecting <command>.
+root@bianchi# run show interfaces terse
+Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    down
+gr-0/0/0                up    up
+ip-0/0/0                up    up
+lt-0/0/0                up    up
+ge-0/0/1                up    down
+ge-0/0/2                up    down
+ge-0/0/3                up    down
+ge-0/0/4                up    down
+ge-0/0/5                up    down
+ge-0/0/6                up    down
+ge-0/0/7                up    down
+ge-0/0/8                up    down
+ge-0/0/9                up    down
+ge-0/0/10               up    down
+ge-0/0/11               up    down
+mt-7/0/0                up    up
+avs0                    up    up
+avs1                    up    up
+avs1.0                  up    up   inet     254.0.0.254         --> 0/0
+                                   inet6    fe80::199
+dsc                     up    up
+em0                     up    up
+em0.0                   up    up   inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+em1                     up    down
+em1.0                   up    down inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:1ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+fxp0                    up    up
+fxp0.0                  up    up   inet     10.157.77.235/19
+gre                     up    up
+ipip                    up    up
+irb                     up    up
+lo0                     up    up
+lo0.0                   up    up   inet     10.254.77.235       --> 0/0
+                                   iso      47.0005.80ff.f800.0000.0108.0001.0102.5407.7235
+                                   inet6    abcd::10:254:77:235
+                                            fe80::2a2:b10f:fcc3:f500
+lo0.16384               up    up   inet     127.0.0.1           --> 0/0
+lo0.16385               up    up   inet
+lsi                     up    up
+mtun                    up    up
+pimd                    up    up
+pime                    up    up
+ppd0                    up    up
+ppe0                    up    up
+st0                     up    up
+tap                     up    up
+
+[edit]
+root@bianchi# ...0 unit 0 family inet address 4.0.0.254/8
+0/8 next-hop 4.0.0.1
+set security zones security-zone untrust interfaces ge-0/0/0
+set security zones security-zone untrust interfaces ge-0/0/0 host-inbound-traffic system-services ping
+set interfaces ge-0/0/1 unit 0 family inet address 5.0.0.254/8
+set routing-options static route 7.0.0.0/8 next-hop 5.0.0.1
+set security zones security-zone trust interfaces ge-0/0/1
+set security zones security-zone trust interfaces ge-0/0/1 host-inbound-traffic system-services ping
+delete security policies
+set security policies from-zone trust to-zone untrust policy 1 match source-address any
+set security policies from-zone trust to-zone untrust policy 1 match destination-address any
+set security policies from-zone trust to-zone untrust policy 1 match application any
+set security policies from-zone trust to-zone untrust policy 1 then perm
+it application-services idp
+set secu[edit]
+root@bianchi# ...atic route 6.0.0.0/8 next-hop 4.0.0.1
+
+[edit]
+root@bianchi# ...urity-zone untrust interfaces ge-0/0/0
+
+[edit]
+root@bianchi# ... host-inbound-traffic system-services ping
+
+[edit]
+root@bianchi# ...1 unit 0 family inet address 5.0.0.254/8
+
+[edit]
+root@bianchi# ...atic route 7.0.0.0/8 next-hop 5.0.0.1
+
+[edit]
+root@bianchi# ...urity-zone trust interfaces ge-0/0/1
+
+[edit]
+root@bianchi# ...ost-inbound-traffic system-services ping
+
+[edit]
+root@bianchi# delete security policies
+warning: statement not found
+
+[edit]
+root@bianchi# ...zone untrust policy 1 match source-address any
+
+[edit]
+root@bianchi# ...zone untrust policy 1 match destination-address any
+
+[edit]
+root@bianchi# ...zone untrust policy 1 match application any
+
+[edit]
+root@bianchi# ... 1 then permit application-services idp
+
+[edit]
+root@bianchi# ...o-zone trust policy 1 match source-address any
+
+[edit]
+root@bianchi# ...o-zone trust policy 1 match destination-address any
+
+[edit]
+root@bianchi# ...o-zone trust policy 1 match application any
+
+[edit]
+root@bianchi# ... 1 then permit application-services idp
+
+[edit]
+root@bianchi# commit
+[edit groups global security zones security-zone HOST]
+  'interfaces all'
+    Error: No other interface can be defined under any zone if interfaces 'all' is defined
+error: configuration check-out failed
+
+[edit]
+root@bianchi# delete groups global security zones
+
+[edit]
+root@bianchi# commit
+commit complete
+
+[edit]
+root@bianchi# run show interfaces terse
+Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    down
+ge-0/0/0.0              up    down inet     4.0.0.254/8
+                                   multiservice
+gr-0/0/0                up    up
+ip-0/0/0                up    up
+lt-0/0/0                up    up
+ge-0/0/1                up    down
+ge-0/0/1.0              up    down inet     5.0.0.254/8
+                                   multiservice
+ge-0/0/2                up    down
+ge-0/0/3                up    down
+ge-0/0/4                up    down
+ge-0/0/5                up    down
+ge-0/0/6                up    down
+ge-0/0/7                up    down
+ge-0/0/8                up    down
+ge-0/0/9                up    down
+ge-0/0/10               up    down
+ge-0/0/11               up    down
+mt-7/0/0                up    up
+avs0                    up    up
+avs1                    up    up
+avs1.0                  up    up   inet     254.0.0.254         --> 0/0
+                                   inet6    fe80::199
+dsc                     up    up
+em0                     up    up
+em0.0                   up    up   inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+em1                     up    down
+em1.0                   up    down inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:1ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+fxp0                    up    up
+fxp0.0                  up    up   inet     10.157.77.235/19
+gre                     up    up
+ipip                    up    up
+irb                     up    up
+lo0                     up    up
+lo0.0                   up    up   inet     10.254.77.235       --> 0/0
+                                   iso      47.0005.80ff.f800.0000.0108.0001.0102.5407.7235
+                                   inet6    abcd::10:254:77:235
+                                            fe80::2a2:b10f:fcc3:f500
+lo0.16384               up    up   inet     127.0.0.1           --> 0/0
+lo0.16385               up    up   inet
+lsi                     up    up
+mtun                    up    up
+pimd                    up    up
+pime                    up    up
+ppd0                    up    up
+ppe0                    up    up
+st0                     up    up
+tap                     up    up
+
+[edit]
+root@bianchi# Write failed: Connection reset by peer
+
+ruihan@RUIHAN-T430 ~
+$
+
+ruihan@RUIHAN-T430 ~
+$ ssh ruihan@svl-junos-d018
+Last login: Wed Jul 10 16:15:52 2013 from 172.23.5.198
+Copyright (c) 1980, 1983, 1986, 1988, 1990, 1991, 1993, 1994
+        The Regents of the University of California.  All rights reserved.
+
+
+*****************************************************************************
+*****************************************************************************
+**                                                                         **
+**  Hostname: svl-junos-d018.juniper.net                                   **
+**  IP Address: 172.17.30.226                                              **
+**  Operating System: FreeBSD 7.1-RELEASE-JNPR-8                           **
+**                                                                         **
+*****************************************************************************
+**                                                                         **
+**  For general build issues, please email "build-trolls"                  **
+**                                                                         **
+**  For system down/hang issues, please open a helpdesk ticket             **
+**  Category "Engineering"                                                 **
+**                                                                         **
+*****************************************************************************
+*****************************************************************************
+
+Having trouble using fetch through a firewall? Try setting the environment
+variable FTP_PASSIVE_MODE to yes, and see fetch(3) for more details.
+[ruihan@svl-junos-d018 ~]$
+[ruihan@svl-junos-d018 ~]$ ssh root@banchi
+ssh: Could not resolve hostname banchi: hostname nor servname provided, or not known
+[ruihan@svl-junos-d018 ~]$ ssh root@banchi
+ssh: Could not resolve hostname banchi: hostname nor servname provided, or not known
+[ruihan@svl-junos-d018 ~]$ ssh root@bianchi
+root@bianchi-fxp0.spglab.juniper.net's password:
+--- JUNOS 12.1I20121019_0333_png built 2012-10-19 04:04:22 UTC
+root@bianchi%
+root@bianchi%
+root@bianchi%
+root@bianchi% run show interfaces terse
+run: Command not found.
+root@bianchi% cli
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi> run
+              ^
+unknown command.
+root@bianchi> exit
+
+root@bianchi% configure
+configure: Command not found.
+root@bianchi% run configure
+run: Command not found.
+root@bianchi% cli
+root@bianchi> configure
+Entering configuration mode
+
+[edit]
+root@bianchi# run show interfaces ?
+Possible completions:
+  <[Enter]>            Execute this command
+  <interface-name>     Name of physical or logical interface
+  ge-0/0/0
+  ge-0/0/0.0
+  gr-0/0/0
+  ip-0/0/0
+  lt-0/0/0
+  ge-0/0/1
+  ge-0/0/1.0
+  ge-0/0/2
+  ge-0/0/3
+  ge-0/0/4
+  ge-0/0/5
+  ge-0/0/6
+  ge-0/0/7
+  ge-0/0/8
+  ge-0/0/9
+  ge-0/0/10
+  ge-0/0/11
+  mt-7/0/0
+  avs0
+  avs1
+  avs1.0
+  dsc
+  em0
+  em0.0
+  em1
+  em1.0
+  fxp0
+  fxp0.0
+  gre
+  ipip
+  irb
+  lo0
+  lo0.0
+  lo0.16384
+  lo0.16385
+  lsi
+  mtun
+  pimd
+  pime
+  ppd0
+  ppe0
+  st0
+  tap
+  brief                Display brief output
+  controller           Show controller information
+  descriptions         Display interface description strings
+  destination-class    Show statistics for destination class
+  detail               Display detailed output
+  diagnostics          Show interface diagnostics information
+  extensive            Display extensive output
+  far-end-interval     Show far end interval statistics
+  filters              Show interface filters information
+  flow-statistics      Show security flow counters and errors
+  interface-set        Show interface set information
+  interval             Show interval statistics
+  load-balancing       Show load-balancing status
+  mc-ae                Show MC-AE configured interface information
+  media                Display media information
+  policers             Show interface policers information
+  queue                Show queue statistics for this interface
+  redundancy           Show redundancy status
+  routing              Show routing status
+  routing-instance     Name of routing instance
+  snmp-index           SNMP index of interface
+  source-class         Show statistics for source class
+  statistics           Display statistics and detailed output
+  terse                Display terse output
+  |                    Pipe through a command
+[edit]
+root@bianchi# run show interfaces terse
+Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    down
+ge-0/0/0.0              up    down inet     4.0.0.254/8
+                                   multiservice
+gr-0/0/0                up    up
+ip-0/0/0                up    up
+lt-0/0/0                up    up
+ge-0/0/1                up    down
+ge-0/0/1.0              up    down inet     5.0.0.254/8
+                                   multiservice
+ge-0/0/2                up    down
+ge-0/0/3                up    down
+ge-0/0/4                up    down
+ge-0/0/5                up    down
+ge-0/0/6                up    down
+ge-0/0/7                up    down
+ge-0/0/8                up    down
+ge-0/0/9                up    down
+ge-0/0/10               up    down
+ge-0/0/11               up    down
+mt-7/0/0                up    up
+avs0                    up    up
+avs1                    up    up
+avs1.0                  up    up   inet     254.0.0.254         --> 0/0
+                                   inet6    fe80::199
+dsc                     up    up
+em0                     up    up
+em0.0                   up    up   inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+em1                     up    down
+em1.0                   up    down inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:1ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+fxp0                    up    up
+fxp0.0                  up    up   inet     10.157.77.235/19
+gre                     up    up
+ipip                    up    up
+irb                     up    up
+lo0                     up    up
+lo0.0                   up    up   inet     10.254.77.235       --> 0/0
+                                   iso      47.0005.80ff.f800.0000.0108.0001.0102.5407.7235
+                                   inet6    abcd::10:254:77:235
+                                            fe80::2a2:b10f:fcc3:f500
+lo0.16384               up    up   inet     127.0.0.1           --> 0/0
+lo0.16385               up    up   inet
+lsi                     up    up
+mtun                    up    up
+pimd                    up    up
+pime                    up    up
+ppd0                    up    up
+ppe0                    up    up
+st0                     up    up
+tap                     up    up
+
+[edit]
+root@bianchi# ?
+Possible completions:
+  <[Enter]>            Execute this command
+  activate             Remove the inactive tag from a statement
+  annotate             Annotate the statement with a comment
+  commit               Commit current set of changes
+  copy                 Copy a statement
+  deactivate           Add the inactive tag to a statement
+  delete               Delete a data element
+  edit                 Edit a sub-element
+  exit                 Exit from this level
+  extension            Extension operations
+  help                 Provide help information
+  insert               Insert a new ordered data element
+  load                 Load configuration from ASCII file
+  prompt               Prompt for an input
+  protect              Protect the statement
+  quit                 Quit from this level
+  rename               Rename a statement
+  replace              Replace character string in configuration
+  rollback             Roll back to previous committed configuration
+  run                  Run an operational-mode command
+  save                 Save configuration to ASCII file
+  set                  Set a parameter
+  show                 Show a parameter
+  status               Show users currently editing configuration
+  top                  Exit to top level of configuration
+  unprotect            Unprotect the statement
+  up                   Exit one level of configuration
+  wildcard             Wildcard operations
+[edit]
+root@bianchi# delete ?
+Possible completions:
+  <[Enter]>            Execute this command
+> access               Network access configuration
+> access-profile       Access profile for this instance
+> accounting-options   Accounting data configuration
+> applications         Define applications by protocol characteristics
++ apply-groups         Groups from which to inherit configuration data
+> bridge-domains       Bridge domain configuration
+> chassis              Chassis configuration
+> class-of-service     Class-of-service configuration
+> event-options        Event processing configuration
+> firewall             Define a firewall configuration
+> forwarding-options   Configure options to control packet forwarding
+> groups               Configuration groups
+> interfaces           Interface configuration
+> jsrc                 JSRC partition configuration
+> jsrc-partition       JSRC partition configuration
+> logical-systems      Logical systems
+> multi-chassis
+> policy-options       Policy option configuration
+> protocols            Routing protocol configuration
+> routing-instances    Routing instance configuration
+> routing-options      Protocol-independent routing option configuration
+> schedulers           Security scheduler
+> security             Security configuration
+> services             Set services parameters
+> snmp                 Simple Network Management Protocol configuration
+> system               System parameters
+  |                    Pipe through a command
+[edit]
+root@bianchi# delete security ?
+Possible completions:
+  <[Enter]>            Execute this command
+> address-book         Security address book
+> alarms               Configure security alarms
+> alg                  Configure ALG security options
+> analysis             Configure security analysis
+> application-firewall  Configure application-firewall rule-sets
+> application-tracking  Application tracking configuration
++ apply-groups         Groups from which to inherit configuration data
++ apply-groups-except  Don't inherit configuration data from these groups
+> certificates         X.509 certificate configuration
+> datapath-debug       Datapath debug options
+> firewall-authentication  Firewall authentication parameters
+> flow                 FLOW configuration
+> forwarding-options   Security-forwarding-options configuration
+> forwarding-process   Configure security forwarding-process options
+> gprs                 GPRS configuration
+> idp                  Configure IDP
+> ike                  IKE configuration
+> ipsec                IPSec configuration
+> log                  Configure security log
+> nat                  Configure Network Address Translation
+> pki                  PKI service configuration
+> policies             Configure Network Security Policies
+> resource-manager     Configure resource manager security options
+> screen               Configure screen feature
+> softwires            Configure softwire feature
+> ssh-known-hosts      SSH known host list
+> traceoptions         Network security daemon tracing options
+> user-identification  Configure user-identification
+> zones                Zone configuration
+  |                    Pipe through a command
+[edit]
+root@bianchi# delete security idp
+
+[edit]
+root@bianchi#
+
+[edit]
+root@bianchi#
+
+[edit]
+root@bianchi#
+
+[edit]
+root@bianchi#
+
+[edit]
+root@bianchi# exit
+The configuration has been changed but not committed
+Exit with uncommitted changes? [yes,no] (yes) no
+
+Exit aborted
+
+[edit]
+root@bianchi# exit
+The configuration has been changed but not committed
+Exit with uncommitted changes? [yes,no] (yes) yes
+
+Exiting configuration mode
+
+root@bianchi> ?
+Possible completions:
+  clear                Clear information in the system
+  configure            Manipulate software configuration information
+  file                 Perform file operations
+  help                 Provide help information
+  monitor              Show real-time debugging information
+  mtrace               Trace multicast path from source to receiver
+
+  op                   Invoke an operation script
+  ping                 Ping remote target
+  quit                 Exit the management session
+  request              Make system-level requests
+  restart              Restart software process
+  set                  Set CLI properties, date/time, craft interface message
+  show                 Show system information
+  ssh                  Start secure shell on another host
+  start                Start shell
+  telnet               Telnet to another host
+  test                 Perform diagnostic debugging
+  traceroute           Trace route to remote host
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi> configure
+Entering configuration mode
+The configuration has been changed but not committed
+
+[edit]
+root@bianchi# run show interfaces terse
+Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    down
+ge-0/0/0.0              up    down inet     4.0.0.254/8
+                                   multiservice
+gr-0/0/0                up    up
+ip-0/0/0                up    up
+lt-0/0/0                up    up
+ge-0/0/1                up    down
+ge-0/0/1.0              up    down inet     5.0.0.254/8
+                                   multiservice
+ge-0/0/2                up    down
+ge-0/0/3                up    down
+ge-0/0/4                up    down
+ge-0/0/5                up    down
+ge-0/0/6                up    down
+ge-0/0/7                up    down
+ge-0/0/8                up    down
+ge-0/0/9                up    down
+ge-0/0/10               up    down
+ge-0/0/11               up    down
+mt-7/0/0                up    up
+avs0                    up    up
+avs1                    up    up
+avs1.0                  up    up   inet     254.0.0.254         --> 0/0
+                                   inet6    fe80::199
+dsc                     up    up
+em0                     up    up
+em0.0                   up    up   inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+em1                     up    down
+em1.0                   up    down inet     10.0.0.1/8
+                                            10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::200:1ff:fe00:4/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+fxp0                    up    up
+fxp0.0                  up    up   inet     10.157.77.235/19
+gre                     up    up
+ipip                    up    up
+irb                     up    up
+lo0                     up    up
+lo0.0                   up    up   inet     10.254.77.235       --> 0/0
+                                   iso      47.0005.80ff.f800.0000.0108.0001.0102.5407.7235
+                                   inet6    abcd::10:254:77:235
+                                            fe80::2a2:b10f:fcc3:f500
+lo0.16384               up    up   inet     127.0.0.1           --> 0/0
+lo0.16385               up    up   inet
+lsi                     up    up
+mtun                    up    up
+pimd                    up    up
+pime                    up    up
+ppd0                    up    up
+ppe0                    up    up
+st0                     up    up
+tap                     up    up
+
+[edit]
+root@bianchi# tunpdump
+              ^
+unknown command.
+
+[edit]
+root@bianchi# exit
+The configuration has been changed but not committed
+Exit with uncommitted changes? [yes,no] (yes) yes
+
+Exiting configuration mode
+
+root@bianchi> tnpdump
+              ^
+unknown command.
+
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> ls
+              ^
+unknown command.
+
+root@bianchi> ?
+Possible completions:
+  clear                Clear information in the system
+  configure            Manipulate software configuration information
+  file                 Perform file operations
+  help                 Provide help information
+  monitor              Show real-time debugging information
+  mtrace               Trace multicast path from source to receiver
+  op                   Invoke an operation script
+  ping                 Ping remote target
+  quit                 Exit the management session
+  request              Make system-level requests
+  restart              Restart software process
+  set                  Set CLI properties, date/time, craft interface message
+  show                 Show system information
+  ssh                  Start secure shell on another host
+  start                Start shell
+  telnet               Telnet to another host
+  test                 Perform diagnostic debugging
+  traceroute           Trace route to remote host
+root@bianchi> exit
+
+root@bianchi% shwo classis fpc pic-
+shwo: Command not found.
+root@bianchi% shwo classis fpc pic-
+shwo: Command not found.
+root@bianchi%
+root@bianchi%
+root@bianchi% configure
+configure: Command not found.
+root@bianchi% cli
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> configure
+Entering configuration mode
+
+[edit]
+root@bianchi# show classis
+                   ^
+syntax error.
+root@bianchi# exit
+Exiting configuration mode
+
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> show class-o?
+Possible completions:
+  class-of-service     Show class-of-service (CoS) information
+root@bianchi> show cl?
+Possible completions:
+  class-of-service     Show class-of-service (CoS) information
+  cli                  Show command-line interface settings
+root@bianchi> exit
+
+root@bianchi% tnpdump
+   Name                TNPaddr   MAC address    IF     MTU E H R
+master                   0x1 02:00:00:00:00:04 em0    1500 0 0 3
+master                   0x1 02:00:01:00:00:04 em1    1500 0 1 3
+cpp0                     0x2 02:00:00:00:00:02 em0    1500 5 0 3
+re0                      0x4 02:00:00:00:00:04 em0    1500 0 0 3
+re0                      0x4 02:00:01:00:00:04 em1    1500 0 1 3
+fpc7.pic0              0x117 02:00:00:00:01:17 em0    1500 2 0 3
+fpc10.pic0             0x11a 02:00:00:00:01:1a em0    1500 2 0 3
+bcast             0xffffffff ff:ff:ff:ff:ff:ff em0    1500 0 0 3
+bcast             0xffffffff ff:ff:ff:ff:ff:ff em1    1500 0 1 3
+root@bianchi% show classis fpc
+show: Command not found.
+root@bianchi% run show classis fpc
+run: Command not found.
+root@bianchi% vty
+vty: usage: vty [-c 'command'                       |
+            -h                                 |
+            -l <logname>                       |
+            -Vv                                |
+            -r (connect using rdp)             |
+            -s <dst port(num or app name(idp,cpd_slave)> |
+            -J
+            -z <script_file>] tnpname
+root@bianchi%
+root@bianchi%
+root@bianchi% eixt
+eixt: Command not found.
+root@bianchi% exit
+logout
+Connection to bianchi-fxp0.spglab.juniper.net closed.
+[ruihan@svl-junos-d018 ~]$ exit
+logout
+Connection to svl-junos-d018 closed.
+
+ruihan@RUIHAN-T430 ~
+$ ssh ruihan@svl-junos-d018
+Last login: Thu Jul 11 10:22:37 2013 from 172.21.147.200
+Copyright (c) 1980, 1983, 1986, 1988, 1990, 1991, 1993, 1994
+        The Regents of the University of California.  All rights reserved.
+
+
+*****************************************************************************
+*****************************************************************************
+**                                                                         **
+**  Hostname: svl-junos-d018.juniper.net                                   **
+**  IP Address: 172.17.30.226                                              **
+**  Operating System: FreeBSD 7.1-RELEASE-JNPR-8                           **
+**                                                                         **
+*****************************************************************************
+**                                                                         **
+**  For general build issues, please email "build-trolls"                  **
+**                                                                         **
+**  For system down/hang issues, please open a helpdesk ticket             **
+**  Category "Engineering"                                                 **
+**                                                                         **
+*****************************************************************************
+*****************************************************************************
+
+This fortune brought to you by:
+$FreeBSD: release/7.1.0/games/fortune/datfiles/freebsd-tips 174574 2007-12-13 05:45:08Z dougb $
+[ruihan@svl-junos-d018 ~]$ /b/ruihan/settitle.sh DUT-Bianchi
+
+[ruihan@svl-junos-d018 ~]$ ssh root@bianchi
+root@bianchi-fxp0.spglab.juniper.net's password:
+Permission denied, please try again.
+root@bianchi-fxp0.spglab.juniper.net's password:
+--- JUNOS 12.1I20121019_0333_png built 2012-10-19 04:04:22 UTC
+root@bianchi%
+root@bianchi%
+root@bianchi% tupdump
+tupdump: Command not found.
+root@bianchi% tnpdump
+   Name                TNPaddr   MAC address    IF     MTU E H R
+master                   0x1 02:00:00:00:00:04 em0    1500 0 0 3
+master                   0x1 02:00:01:00:00:04 em1    1500 0 1 3
+cpp0                     0x2 02:00:00:00:00:02 em0    1500 5 0 3
+re0                      0x4 02:00:00:00:00:04 em0    1500 0 0 3
+re0                      0x4 02:00:01:00:00:04 em1    1500 0 1 3
+fpc7.pic0              0x117 02:00:00:00:01:17 em0    1500 3 0 3
+fpc10.pic0             0x11a 02:00:00:00:01:1a em0    1500 2 0 3
+bcast             0xffffffff ff:ff:ff:ff:ff:ff em0    1500 0 0 3
+bcast             0xffffffff ff:ff:ff:ff:ff:ff em1    1500 0 1 3
+root@bianchi%
+root@bianchi%
+root@bianchi% man
+man: Command not found.
+root@bianchi% help
+help: Command not found.
+root@bianchi% -help
+-help: Command not found.
+root@bianchi% who
+root     ttyp0    Jul 11 11:11 (172.17.30.226)
+root     ttyp1    Jul 11 10:37 (172.17.38.131)
+root@bianchi% uname
+JUNOS
+root@bianchi% uname -a
+JUNOS bianchi 12.1I20121019_0333_png JUNOS 12.1I20121019_0333_png #0: 2012-10-19 04:04:22 UTC     png@svl-junos-d018.juniper.net:/b/png/1015/obj-powerpc/junos/bsd/kernels/JUNIPER-SRX/kernel  powerpc
+root@bianchi%
+root@bianchi%
+root@bianchi%
+root@bianchi%
+root@bianchi% cli
+root@bianchi> ?
+Possible completions:
+  clear                Clear information in the system
+  configure            Manipulate software configuration information
+  file                 Perform file operations
+  help                 Provide help information
+  monitor              Show real-time debugging information
+  mtrace               Trace multicast path from source to receiver
+  op                   Invoke an operation script
+  ping                 Ping remote target
+  quit                 Exit the management session
+  request              Make system-level requests
+  restart              Restart software process
+  set                  Set CLI properties, date/time, craft interface message
+  show                 Show system information
+  ssh                  Start secure shell on another host
+  start                Start shell
+  telnet               Telnet to another host
+  test                 Perform diagnostic debugging
+  traceroute           Trace route to remote host
+root@bianchi> show classi
+                   ^
+syntax error, expecting <command>.
+root@bianchi> show classis
+                   ^
+syntax error, expecting <command>.
+root@bianchi> show class-of-service
+Forwarding class                       ID      Queue  Restricted queue  Fabric priority  Policing priority   SPU priority
+  best-effort                           0       0          0             low                normal            low
+  expedited-forwarding                  1       1          1             low                normal            low
+  assured-forwarding                    2       2          2             low                normal            low
+  network-control                       3       3          3             low                normal            low
+Code point type: dscp
+  Alias              Bit pattern
+  af11               001010
+  af12               001100
+  af13               001110
+  af21               010010
+  af22               010100
+  af23               010110
+  af31               011010
+  af32               011100
+  af33               011110
+  af41               100010
+  af42               100100
+  af43               100110
+  be                 000000
+  cs1                001000
+  cs2                010000
+  cs3                011000
+  cs4                100000
+  cs5                101000
+  cs6                110000
+  cs7                111000
+  ef                 101110
+  nc1                110000
+  nc2                111000
+
+Code point type: dscp-ipv6
+  Alias              Bit pattern
+  af11               001010
+  af12               001100
+  af13               001110
+  af21               010010
+  af22               010100
+  af23               010110
+  af31               011010
+  af32               011100
+  af33               011110
+  af41               100010
+  af42               100100
+  af43               100110
+  be                 000000
+  cs1                001000
+  cs2                010000
+  cs3                011000
+  cs4                100000
+  cs5                101000
+  cs6                110000
+  cs7                111000
+  ef                 101110
+  nc1                110000
+  nc2                111000
+
+Code point type: exp
+  Alias              Bit pattern
+  af11               100
+  af12               101
+  be                 000
+  be1                001
+  cs6                110
+  cs7                111
+  ef                 010
+  ef1                011
+  nc1                110
+  nc2                111
+
+Code point type: ieee-802.1
+
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi>
+
+root@bianchi> show pfc
+                   ^
+syntax error, expecting <command>.
+
+root@bianchi> show ?
+Possible completions:
+  accounting           Show accounting profiles and records
+  arp                  Show system Address Resolution Protocol table entries
+  as-path              Show table of known autonomous system paths
+  bfd                  Show Bidirectional Forwarding Detection information
+  bgp                  Show Border Gateway Protocol information
+  bridge               Show bridging information
+  chassis              Show chassis information
+  class-of-service     Show class-of-service (CoS) information
+  cli                  Show command-line interface settings
+  configuration        Show current configuration
+  database-replication  Show database replication information
+  dhcp                 Show Dynamic Host Configuration Protocol information
+  dhcpv6               Show Dynamic Host Configuration Protocol v6 information
+  dvmrp                Show Distance Vector Multicast Routing Protocol information
+  event-options        Show event-options information
+  firewall             Show firewall information
+  forwarding-options   Show forwarding-options information
+  helper               Show port-forwarding helper information
+  host                 Show hostname information from domain name server
+  iccp                 Show Inter Chassis Control Protocol information
+  igmp                 Show Internet Group Management Protocol information
+  interfaces           Show interface information
+  ipv6                 Show IP version 6 information
+  isis                 Show Intermediate System-to-Intermediate System information
+  l2-learning          Show l2 learning information
+  lacp                 Show Link Aggregation Control Protocol information
+  log                  Show contents of log file
+  mld                  Show multicast listener discovery information
+  msdp                 Show Multicast Source Discovery Protocol information
+  multicast            Show multicast information
+  mvrp                 Show MVRP Protocol information
+  network-access       Show network-access related information
+  ntp                  Show Network Time Protocol information
+  ospf                 Show Open Shortest Path First information
+  ospf3                Show Open Shortest Path First version 3 information
+  pfe                  Show Packet Forwarding Engine information
+  pgm                  Show Pragmatic Generalized Multicast information
+  pim                  Show Protocol Independent Multicast information
+  policer              Show interface policer counters and information
+  policy               Show policy information
+  rip                  Show Routing Information Protocol information
+  ripng                Show Routing Information Protocol for IPv6 information
+  route                Show routing table information
+  sap                  Show Session Announcement Protocol information
+  schedulers           Show the information on one or more schedulers
+  security             Show security information
+  services             Show services information
+  snmp                 Show Simple Network Management Protocol information
+  system               Show system information
+  task                 Show routing protocol per-task information
+  version              Show software process revision levels
+  vpls                 Show VPLS information
+  vrrp                 Show Virtual Router Redundancy Protocol information
+root@bianchi> show cli ?
+Possible completions:
+  <[Enter]>            Execute this command
+  authorization        Show authorization and authentication information
+  directory            Show current working directory
+  history              Show list of previous commands
+  |                    Pipe through a command
+root@bianchi> show cli history ?
+Possible completions:
+  <[Enter]>            Execute this command
+  <count>              Maximum number of commands to display
+  |                    Pipe through a command
+root@bianchi> show cli history
+  11:15:06 -- show class-of-service
+  11:15:19 -- show pfc
+  11:15:40 -- show cli history
+
+root@bianchi> show ?
+Possible completions:
+  accounting           Show accounting profiles and records
+  arp                  Show system Address Resolution Protocol table entries
+  as-path              Show table of known autonomous system paths
+  bfd                  Show Bidirectional Forwarding Detection information
+  bgp                  Show Border Gateway Protocol information
+  bridge               Show bridging information
+  chassis              Show chassis information
+  class-of-service     Show class-of-service (CoS) information
+  cli                  Show command-line interface settings
+  configuration        Show current configuration
+  database-replication  Show database replication information
+  dhcp                 Show Dynamic Host Configuration Protocol information
+  dhcpv6               Show Dynamic Host Configuration Protocol v6 information
+  dvmrp                Show Distance Vector Multicast Routing Protocol information
+  event-options        Show event-options information
+  firewall             Show firewall information
+  forwarding-options   Show forwarding-options information
+  helper               Show port-forwarding helper information
+  host                 Show hostname information from domain name server
+  iccp                 Show Inter Chassis Control Protocol information
+  igmp                 Show Internet Group Management Protocol information
+  interfaces           Show interface information
+  ipv6                 Show IP version 6 information
+  isis                 Show Intermediate System-to-Intermediate System information
+  l2-learning          Show l2 learning information
+  lacp                 Show Link Aggregation Control Protocol information
+  log                  Show contents of log file
+  mld                  Show multicast listener discovery information
+  msdp                 Show Multicast Source Discovery Protocol information
+  multicast            Show multicast information
+  mvrp                 Show MVRP Protocol information
+  network-access       Show network-access related information
+  ntp                  Show Network Time Protocol information
+  ospf                 Show Open Shortest Path First information
+  ospf3                Show Open Shortest Path First version 3 information
+  pfe                  Show Packet Forwarding Engine information
+  pgm                  Show Pragmatic Generalized Multicast information
+  pim                  Show Protocol Independent Multicast information
+  policer              Show interface policer counters and information
+  policy               Show policy information
+  rip                  Show Routing Information Protocol information
+  ripng                Show Routing Information Protocol for IPv6 information
+  route                Show routing table information
+  sap                  Show Session Announcement Protocol information
+  schedulers           Show the information on one or more schedulers
+  security             Show security information
+  services             Show services information
+  snmp                 Show Simple Network Management Protocol information
+  system               Show system information
+  task                 Show routing protocol per-task information
+  version              Show software process revision levels
+  vpls                 Show VPLS information
+  vrrp                 Show Virtual Router Redundancy Protocol information
+root@bianchi> show pfe ?
+Possible completions:
+  next-hop             Show Packet Forwarding Engine next-hop information
+  pfem                 Show pfem information
+  route                Show Packet Forwarding Engine routing table
+  statistics           Show Packet Forwarding Engine statistics
+  terse                Show list of Packet Forwarding Engine components
+  version              Show pfe version
+root@bianchi> show pfe terse ?
+Possible completions:
+  <[Enter]>            Execute this command
+  |                    Pipe through a command
+root@bianchi> show pfe terse
+Slot Type Slot      State     Uptime
+     FWDD Present   Online    4d 18:14
+     FWDD Present   Online    4d 18:11
+     FWDD Present   Online    4d 18:11
+ 14  LCC  Present   Online    4d 18:11
+ 20  LCC  Present   Online    4d 18:11

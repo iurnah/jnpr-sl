@@ -1,0 +1,16 @@
+set syslog queue 1000000
+set usp flow local-debug-buf state 0
+set usp flow local-debug-buf size 10000
+clear usp flow trace
+set usp flow local-debug-buf state 1  
+debug usp idp features all enable
+debug usp idp features device disable   
+debug usp idp features pktlog disable    
+debug usp idp features memory disable 
+debug usp idp qmodules all enable    
+debug usp idp services 0xffffff
+debug usp idp services2 0xfffff
+debug usp idp features packet disable
+debug usp idp level debug
+debug usp appid all enable
+debug usp flow enable

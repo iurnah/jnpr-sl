@@ -1,0 +1,2229 @@
+Script started, output file is typescript
+root@bianchi% #####show the initial test state of the idp counters:
+#####show: Command not found.
+root@bianchi% cli
+root@bianchi> ####show the initial test state of the idp counters:
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       93
+ Sessions Decrypted                                                      23
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        117
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            0
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> show security idp ssl-inspection key
+Total SSL keys : 1
+
+
+SSL Server key and ip address:
+
+  Key : bianchi-server-wrong-4096, server : 5.0.0.1
+
+root@bianchi> ####now sending traffic using openssl(wrong key):
+
+root@bianchi> show security monio
+                            ^
+syntax error, expecting <command>.
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:  71   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:  81  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  65  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  91   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:  92   7:   0   8:   0   9:  99  10:   0  11:   0
+12:   0  13:   0  14:  76  15:  89  16:  89  17:  89
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:  77   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:  84  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:  71
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:  81  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:  65  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  72   3:  85   4:  85   5:  85
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:  81
+12:  91  13:  91  14:  91  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  92  21:   0  22:   0  23:  99
+24:   0  25:   0  26:   0  27:   0  28:  76  29:  89
+30:  89  31:  89  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:  77  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:  84  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:  71  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:  81  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:  65
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:  88   2:   0   3:   0   4:  91   5:   0
+ 6:   0   7:  92   8:   0   9:   0  10:  94  11:   0
+12:   0  13:   0  14:   0  15:  72  16:  85  17:  85
+18:  85  19:   0  20:   0  21:   0  22:   0  23:   0
+24:  81  25:  91  26:  91  27:  91  28:   0  29:   0
+30:   0  31:   0  32:   0  33:  92  34:   0  35:   0
+36:  99  37:   0  38:   0  39:   0  40:   0  41:  76
+42:  89  43:  89  44:  89  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  69   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:  73  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:  77  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:  84
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:  71  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:  81  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:  86
+ 6:   0   7:   0   8:  86   9:  91  10:  91  11:  91
+12:   0  13:   0  14:   0  15:   0  16:   0  17:  89
+18:   0  19:   0  20:  88  21:   0  22:   0  23:  91
+24:   0  25:   0  26:  92  27:   0  28:   0  29:  94
+30:   0  31:   0  32:   0  33:   0  34:  72  35:  85
+36:  85  37:  85  38:   0  39:   0  40:   0  41:   0
+42:   0  43:  81  44:  91  45:  91  46:  91  47:   0
+48:   0  49:   0  50:   0  51:   0  52:  92  53:   0
+54:   0  55:  99  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  65   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:  69   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  73  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:  77  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:  84
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:  71  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:  85
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:  86
+12:   0  13:   0  14:  86  15:  91  16:  91  17:  91
+18:   0  19:   0  20:   0  21:   0  22:   0  23:  89
+24:   0  25:   0  26:  88  27:   0  28:   0  29:  91
+30:   0  31:   0  32:  92  33:   0  34:   0  35:  94
+36:   0  37:   0  38:   0  39:   0  40:  72  41:  85
+42:  85  43:  85  44:   0  45:   0  46:   0  47:   0
+48:   0  49:  81  50:  91  51:  91  52:  91  53:   0
+54:   0  55:   0  56:   0  57:   0  58:  92  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:  65   8:   0   9:   0  10:   0  11:   0
+12:   0  13:  69  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:  73  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:  77  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:  84  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:  76   2:  84   3:  84   4:  84   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:  85  11:   0
+12:   0  13:   0  14:   0  15:   0  16:  86  17:   0
+18:   0  19:  86  20:  91  21:  91  22:  91  23:   0
+24:   0  25:   0  26:   0  27:   0  28:  89  29:   0
+30:   0  31:  88  32:   0  33:   0  34:  91  35:   0
+36:   0  37:  92  38:   0  39:   0  40:  94  41:   0
+42:   0  43:   0  44:   0  45:  72  46:  85  47:  85
+48:  85  49:   0  50:   0  51:   0  52:   0  53:   0
+54:  81  55:  91  56:  91  57:  91  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:  84   4:   0   5:   0
+ 6:  77   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:  65  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  69  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:  73  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:  77  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:  84
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:  76   9:  84  10:  84  11:  84
+12:   0  13:   0  14:   0  15:   0  16:   0  17:  85
+18:   0  19:   0  20:   0  21:   0  22:   0  23:  86
+24:   0  25:   0  26:  86  27:  91  28:  91  29:  91
+30:   0  31:   0  32:   0  33:   0  34:   0  35:  89
+36:   0  37:   0  38:  88  39:   0  40:   0  41:  91
+42:   0  43:   0  44:  92  45:   0  46:   0  47:  94
+48:   0  49:   0  50:   0  51:   0  52:  72  53:  85
+54:  85  55:  85  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:  84
+ 6:   0   7:   0   8:  77   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:  65  17:   0
+18:   0  19:   0  20:   0  21:   0  22:  69  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:  73  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:  77  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  84   1:  84   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:  76  11:  84
+12:  84  13:  84  14:   0  15:   0  16:   0  17:   0
+18:   0  19:  85  20:   0  21:   0  22:   0  23:   0
+24:   0  25:  86  26:   0  27:   0  28:  86  29:  91
+30:  91  31:  91  32:   0  33:   0  34:   0  35:   0
+36:   0  37:  89  38:   0  39:   0  40:  88  41:   0
+42:   0  43:  91  44:   0  45:   0  46:  92  47:   0
+48:   0  49:  94  50:   0  51:   0  52:   0  53:   0
+54:  72  55:  85  56:  85  57:  85  58:   0  59:   0
+
+root@bianchi> show security monitoring ?
+Possible completions:
+  fpc                  Show the FPC slot security monitoring information
+  performance          Show security performance information
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   77 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   98 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> ######send traffic using openssl (correct key):
+
+root@bianchi> ######shwo the idp counters:
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       110
+ Sessions Decrypted                                                      27
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        173
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            0
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> ####now start sending the traffic
+
+root@bianchi> show security per
+                            ^
+syntax error, expecting <command>.
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:  70   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:  82  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:  64
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:  95   4:  79   5:  79
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:  74
+12:  84  13:  84  14:  84  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  82  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:  83   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:  70   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:  82
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:  64  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:  80   4:  90   5:  90
+ 6:  90   7:   0   8:   0   9:   0  10:   0  11:   0
+12:  95  13:  79  14:  79  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  74  21:  84  22:  84  23:  84
+24:   0  25:   0  26:   0  27:   0  28:   0  29:  82
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:  83   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:  70  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:  82  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:  64  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  99   3:  87   4:  87   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:  80  11:  90
+12:  90  13:  90  14:   0  15:   0  16:   0  17:   0
+18:   0  19:  95  20:  79  21:  79  22:   0  23:   0
+24:   0  25:   0  26:   0  27:  74  28:  84  29:  84
+30:  84  31:   0  32:   0  33:   0  34:   0  35:   0
+36:  82  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:  74   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:  83  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  70  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:  82
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:  64  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  89   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:  99   7:  87   8:  87   9:   0  10:   0  11:   0
+12:   0  13:   0  14:  80  15:  90  16:  90  17:  90
+18:   0  19:   0  20:   0  21:   0  22:   0  23:  95
+24:  79  25:  79  26:   0  27:   0  28:   0  29:   0
+30:   0  31:  74  32:  84  33:  84  34:  84  35:   0
+36:   0  37:   0  38:   0  39:   0  40:  82  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:  65   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:  74  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:  83  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:  70  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:  82  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:  64  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:  85   5:   0
+ 6:   0   7:  89   8:   0   9:   0  10:   0  11:   0
+12:   0  13:  99  14:  87  15:  87  16:   0  17:   0
+18:   0  19:   0  20:   0  21:  80  22:  90  23:  90
+24:  90  25:   0  26:   0  27:   0  28:   0  29:   0
+30:  95  31:  79  32:  79  33:   0  34:   0  35:   0
+36:   0  37:   0  38:  74  39:  84  40:  84  41:  84
+42:   0  43:   0  44:   0  45:   0  46:   0  47:  82
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:  74   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:  65   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:  74
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:  83  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:  70  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:  82  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:  64  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  73   3:  86   4:  86   5:  86
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:  85
+12:   0  13:   0  14:  89  15:   0  16:   0  17:   0
+18:   0  19:   0  20:  99  21:  87  22:  87  23:   0
+24:   0  25:   0  26:   0  27:   0  28:  80  29:  90
+30:  90  31:  90  32:   0  33:   0  34:   0  35:   0
+36:   0  37:  95  38:  79  39:  79  40:   0  41:   0
+42:   0  43:   0  44:   0  45:  74  46:  84  47:  84
+48:  84  49:   0  50:   0  51:   0  52:   0  53:   0
+54:  82  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:  74   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:  65  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:  74  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:  83  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:  70  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:  82
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:  64  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:  90   2:   0   3:   0   4:   0   5:   0
+ 6:  73   7:  86   8:  86   9:  86  10:   0  11:   0
+12:   0  13:   0  14:   0  15:  85  16:   0  17:   0
+18:  89  19:   0  20:   0  21:   0  22:   0  23:   0
+24:  99  25:  87  26:  87  27:   0  28:   0  29:   0
+30:   0  31:   0  32:  80  33:  90  34:  90  35:  90
+36:   0  37:   0  38:   0  39:   0  40:   0  41:  95
+42:  79  43:  79  44:   0  45:   0  46:   0  47:   0
+48:   0  49:  74  50:  84  51:  84  52:  84  53:   0
+54:   0  55:   0  56:   0  57:   0  58:  82  59:   0
+
+root@bianchi> show security monitoring ?
+Possible completions:
+  fpc                  Show the FPC slot security monitoring information
+  performance          Show security performance information
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   80 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   90 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   84 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   84 %
+    Memory utilization   :   62 %
+    Current flow session :    2
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    0
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :    1
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    4
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    2
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    4
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    4
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :   82 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    2
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    4
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    4
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    0
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :    3
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       299
+ Sessions Decrypted                                                      74
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        220
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            0
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> ###change the key size to 2048
+
+root@bianchi> ###using the wrong key to start the session
+
+root@bianchi> request key
+                      ^
+syntax error, expecting <command>.
+root@bianchi> request security idp sl
+                                   ^
+syntax error, expecting <command>.
+root@bianchi> request security idp ssl-inspection key delete
+This command will delete one or more ssl keys and servers.
+Continue? [yes,no] (no) yes
+
+Number of keys 1, servers 1 deleted
+
+root@bianchi> ... bianchi-server-correct-2048 file bianchi-server-
+                                                                  ^
+'bianchi-server-' is ambiguous.
+Possible completions:
+  <file>               Key file
+  bianchi-server-correct-1024.pem  Size: 887, Last changed: Jul 23 13:54:17
+  bianchi-server-correct-2048.pem  Size: 1679, Last changed: Jul 23 13:55:14
+  bianchi-server-correct-4096.pem  Size: 3247, Last changed: Jul 24 10:31:58
+  bianchi-server-wrong-1024.pem  Size: 887, Last changed: Jul 23 13:54:37
+  bianchi-server-wrong-2048.pem  Size: 1675, Last changed: Jul 23 13:54:56
+  bianchi-server-wrong-4096.pem  Size: 3247, Last changed: Jul 24 10:32:11
+root@bianchi> ...i-server-correct-2048.pem server 5.0.0.1
+Added Key 'bianchi-server-correct-2048', server '5.0.0.1'
+
+root@bianchi> show security idp ssl-inspection key
+Total SSL keys : 1
+
+
+SSL Server key and ip address:
+
+  Key : bianchi-server-correct-2048, server : 5.0.0.1
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       299
+ Sessions Decrypted                                                      74
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        254
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            35
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   7   1:   0   2:  19   3:  16   4:   0   5:  22
+ 6:  12   7:  20   8:   0   9:  25  10:   9  11:   0
+12:  13  13:  21  14:  20  15:   0  16:  17  17:   3
+18:   0  19:  22  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   4  31:   0  32:  21  33:  15  34:  16  35:   0
+36:  13  37:  19  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  28   1:  25   2:  10   3:  38   4:  33   5:  21
+ 6:  25   7:   9   8:  45   9:  28  10:  29  11:  27
+12:  12  13:  18  14:   1  15:  30  16:  34  17:  37
+18:  34  19:  36  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:  27  31:  34  32:   5  33:  35  34:   1  35:  22
+36:  28  37:   8  38:  32  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:  14   2:   0   3:  22   4:  12   5:  20
+ 6:   0   7:  23   8:   7   9:   0  10:  19  11:  16
+12:   0  13:  22  14:  12  15:  20  16:   0  17:  25
+18:   9  19:   0  20:  13  21:  21  22:  20  23:   0
+24:  17  25:   3  26:   0  27:  22  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   4  39:   0  40:  21  41:  15
+42:  16  43:   0  44:  13  45:  19  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   1   2:  21   3:  25   4:  10   5:  27
+ 6:  48   7:  28   8:  25   9:  10  10:  38  11:  33
+12:  21  13:  25  14:   9  15:  45  16:  28  17:  29
+18:  27  19:  12  20:  18  21:   1  22:  30  23:  34
+24:  37  25:  34  26:  36  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:  27  38:  34  39:   5  40:  35  41:   1
+42:  22  43:  28  44:   8  45:  32  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   16 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   31 %
+    Memory utilization   :   62 %
+    Current flow session :    5
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   34 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   35 %
+    Memory utilization   :   62 %
+    Current flow session :    6
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   35 %
+    Memory utilization   :   62 %
+    Current flow session :    6
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   34 %
+    Memory utilization   :   62 %
+    Current flow session :    7
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   34 %
+    Memory utilization   :   62 %
+    Current flow session :    7
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   36 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   36 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   34 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   29 %
+    Memory utilization   :   62 %
+    Current flow session :    6
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    1 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   18 %
+    Memory utilization   :   62 %
+    Current flow session :    5
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   18 %
+    Memory utilization   :   62 %
+    Current flow session :    5
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    3
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   12 %
+    Memory utilization   :   62 %
+    Current flow session :    7
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    3
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    1 %
+    Memory utilization   :   62 %
+    Current flow session :    4
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   18 %
+    Memory utilization   :   62 %
+    Current flow session :    5
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   12 %
+    Memory utilization   :   62 %
+    Current flow session :    7
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    3
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :   28 %
+    Memory utilization   :   62 %
+    Current flow session :    5
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :   17 %
+    Memory utilization   :   60 %
+    Current flow session :    3
+    Max flow session     : 524288
+    Current CP session   :   20
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    3
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :   16
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :   13
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :   13
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :   20 %
+    Memory utilization   :   60 %
+    Current flow session :    1
+    Max flow session     : 524288
+    Current CP session   :   15
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    1
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :   17 %
+    Memory utilization   :   60 %
+    Current flow session :    2
+    Max flow session     : 524288
+    Current CP session   :   12
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    2
+
+root@bianchi> ####change to the 2048 correct key
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       299
+ Sessions Decrypted                                                      74
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        364
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            144
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       664
+ Sessions Decrypted                                                      165
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        455
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            236
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :   11
+    Max flow session     : 524288
+    Current CP session   :   93
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   19
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   27
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   27
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   19
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   19
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   19
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   26
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   26
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   20
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   20
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   11
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       2148
+ Sessions Decrypted                                                      536
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        826
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            607
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> ####now try the 1024 key
+
+root@bianchi> ####start with the wrong key
+
+root@bianchi> ####load correct key
+
+root@bianchi> request security idp ssl-inspection key delete
+This command will delete one or more ssl keys and servers.
+Continue? [yes,no] (no) yes
+
+Number of keys 1, servers 1 deleted
+
+root@bianchi> ...i-server-correct-1024.pem server 5.0.0.1
+Added Key 'bianchi-server-correct-1024', server '5.0.0.1'
+
+root@bianchi>
+
+root@bianchi> shoe
+              ^
+unknown command.
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       2148
+ Sessions Decrypted                                                      536
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        826
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            607
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> #### now start the ssl using the wrong key
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   2   1:   0   2:   0   3:   1   4:   1   5:   0
+ 6:   1   7:   0   8:   1   9:   2  10:   0  11:   2
+12:   2  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   3   1:   1   2:   2   3:   2   4:   3   5:   2
+ 6:   2   7:   2   8:   2   9:   2  10:   3  11:   2
+12:   1  13:   3  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    1 %
+    Memory utilization   :   62 %
+    Current flow session :   13
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    2 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    3 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    7
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    1 %
+    Memory utilization   :   62 %
+    Current flow session :   13
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    7
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    8
+    Max flow session     : 524288
+    Current CP session   :   65
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    7
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :   11
+    Max flow session     : 524288
+    Current CP session   :   73
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 7
+FPC 7
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   60 %
+    Current flow session :    8
+    Max flow session     : 524288
+    Current CP session   :   64
+    Max CP session       : 2359296
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    3 %
+    Memory utilization   :   62 %
+    Current flow session :   13
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   1   1:   0   2:   0   3:   0   4:   1   5:   0
+ 6:   1   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   1  13:   0  14:   1  15:   0  16:   1  17:   0
+18:   1  19:   0  20:   3  21:   0  22:   3  23:   0
+24:   3  25:   0  26:   2  27:   0  28:   0  29:   1
+30:   1  31:   0  32:   1  33:   0  34:   1  35:   2
+36:   0  37:   2  38:   2  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   1   1:   1   2:   1   3:   3   4:   3   5:   2
+ 6:   1   7:   3   8:   2   9:   3  10:   2  11:   2
+12:   1  13:   3  14:   3  15:   2  16:   1  17:   2
+18:   2  19:   3  20:   1  21:   2  22:   1  23:   1
+24:   1  25:   3  26:   1  27:   2  28:   2  29:   3
+30:   2  31:   2  32:   2  33:   2  34:   2  35:   3
+36:   2  37:   1  38:   3  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    2 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    2 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    2 %
+    Memory utilization   :   62 %
+    Current flow session :   19
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    2 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    7
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    2 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    1 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    7
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    1 %
+    Memory utilization   :   62 %
+    Current flow session :   14
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    3 %
+    Memory utilization   :   62 %
+    Current flow session :   19
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):    8
+
+root@bianchi> she
+              ^
+unknown command.
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       2148
+ Sessions Decrypted                                                      536
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        1350
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            1132
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> #### now using the correct key size of 1024
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       2536
+ Sessions Decrypted                                                      633
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        1447
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            1229
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   33
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   32
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   32
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   24
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   33
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   33
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   24
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   32
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   32
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   24
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   32
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   32
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   25
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   33
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   33
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   24
+    Max flow session     : 1048576
+    Current CP session   :    0
+   Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   13
+
+root@bianchi> show security monitoring fpc 10
+FPC 10
+  PIC 0
+    CPU utilization      :    0 %
+    Memory utilization   :   62 %
+    Current flow session :   24
+    Max flow session     : 1048576
+    Current CP session   :    0
+    Max CP session       :    0
+Session Creation Per Second (for last 96 seconds on average):   12
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> ####end the test####################################
+
+root@bianchi> ####conclusion: the 1024 key does have some problems.
+
+root@bianchi> #but it doesn't appear obviously, when the wrong-1024
+
+root@bianchi> #has been used, the CPU usage is not zero, it maintain
+
+root@bianchi> #1%~3%. while use the wrong-2048 key, the xlr decypt,
+
+root@bianchi> #but the CPU usage is also relatively high.
+
+root@bianchi> #
+
+root@bianchi> exit
+
+root@bianchi% exit
+
+Script done, output file is typescript

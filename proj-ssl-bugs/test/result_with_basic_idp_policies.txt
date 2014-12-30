@@ -1,0 +1,370 @@
+Results produced with ping's idp configure and Fab's help with idp policies:
+===========================================================================
+
+root@bianchi> ####show the key installed
+
+root@bianchi> show security idp ssl-inspection key
+Total SSL keys : 1
+
+
+SSL Server key and ip address:
+
+  Key : bianchi-server-wrong-4096, server : 5.0.0.1
+
+root@bianchi> #######use the same key in openssl-single session
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:  96  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       1041
+ Sessions Decrypted                                                      163
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        365
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            2
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> #####use the same key in openssl-run https_traffic
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  75   3:   0   4:   0   5:   0
+ 6:  51   7:   0   8:   0   9:   0  10:   0  11:  55
+12:   0  13:   0  14:   0  15:   0  16:  61  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  72   1:   0   2:   0   3:  63   4:   0   5:  81
+ 6:   0   7:   0   8:  70   9:   0  10:  88  11:   0
+12:   0  13:  75  14:   0  15:  98  16:   0  17:   0
+18:  86  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+AFTER 60 second
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:  64   3:   0   4:   0   5:  62
+ 6:   0   7:   0   8:   0   9:   0  10:  63  11:   0
+12:   0  13:   0  14:   0  15:  69  16:   0  17:   0
+18:  62  19:   0  20:   0  21:   0  22:   0  23:  68
+24:   0  25:   0  26:  62  27:   0  28:   0  29:   0
+30:   0  31:  69  32:   0  33:   0  34:   0  35:   0
+36:  79  37:   0  38:   0  39:  67  40:   0  41:   0
+42:   0  43:   0  44:  55  45:   0  46:   0  47:   0
+48:   0  49:  66  50:   0  51:   0  52:   0  53:   0
+54:  72  55:   0  56:   0  57:  59  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  72   1:   0   2:   0   3:   0   4:  97   5:   0
+ 6:   0   7:  80   8:  70   9:   0  10:   0  11:   0
+12:  94  13:  76  14:   0  15:   0  16:  61  17:   0
+18:   0  19:   0  20:  94  21:  76  22:   0  23:   0
+24:  61  25:   0  26:   0  27:   0  28:  96  29:  77
+30:   0  31:   0  32:  61  33:  84  34:  84  35:   0
+36:   0  37:  62  38:   0  39:   0  40:   0  41:  79
+42:  85  43:   0  44:   0  45:   0  46:  84  47:  72
+48:   0  49:   0  50:   0  51:  96  52:  77  53:   0
+54:   0  55:  57  56:   0  57:   0  58:   0  59:  88
+
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       1139
+ Sessions Decrypted                                                      179
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        382
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            2
+ Sessions - Error when XLR RSA SAE used                                  0
+
+
+root@bianchi> #####use different key in openssl-single session
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       1139
+ Sessions Decrypted                                                      179
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        383
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            2
+ Sessions - Error when XLR RSA SAE used                                  0
+
+root@bianchi> #####use different key-run https_traffic.sh
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:  65   4:   0   5:   0
+ 6:   0   7:   0   8:  65   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:  81   1:  81   2:   0   3:   0   4:   0   5:  87
+ 6:  70   7:   0   8:   0   9:  54  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+AFTER 60 second:
+
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:  52   5:   0
+ 6:   0   7:   0   8:  79   9:   0  10:   0  11:   0
+12:  53  13:   0  14:   0  15:   0  16:  76  17:   0
+18:   0  19:   0  20:  51  21:   0  22:   0  23:   0
+24:   0  25:  52  26:   0  27:   0  28:   0  29:   0
+30:  58  31:   0  32:   0  33:  53  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:  58  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:  53  49:   0  50:   0  51:   0  52:   0  53:  65
+54:   0  55:   0  56:   0  57:   0  58:  65  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:  64   2:   0   3:  85   4:   0   5:   0
+ 6:  74   7:   0   8:   0   9:  67  10:   0  11:  85
+12:   0  13:   0  14:  70  15:   0  16:   0  17:  63
+18:  83  19:  83  20:   0  21:   0  22:  71  23:   0
+24:  84  25:   0  26:   0  27:  69  28:   0  29:  87
+30:   0  31:   0  32:  78  33:   0  34:   0  35:  67
+36:   0  37:  87  38:  75  39:   0  40:   0  41:   0
+42:  85  43:  69  44:  75  45:  75  46:   0  47:  87
+48:   0  49:   0  50:  81  51:  81  52:   0  53:   0
+54:   0  55:  87  56:  70  57:   0  58:   0  59:  54
+
+
+root@bianchi> show security idp counters ssl-inspection
+IDP counters:
+
+  IDP counter type                                                      Value
+ Packets Decrypted                                                       1139
+ Sessions Decrypted                                                      179
+ Sessoins Not Decrypted                                                  0
+ Sessions Not Decrypted - Configuration                                  0
+ Sessions Not Decrypted - No Key                                         0
+ Sessions Not Decrypted - Unsupported Ciphers                            0
+ Sessions Not Decrypted - Unsupported Compression                        0
+ Sessions Not Decrypted - Unsupported Key Exchange                       0
+ Sessions Not Decrypted - Bulk Decryption Failure                        0
+ Sessions Not Decrypted - Key Generation Failure                         0
+ Sessions Not Decrypted - Temporary Certificate                          0
+ Sessions Not Decrypted - Handshake Verification Failure                 0
+ Sessions Not Decrypted - ID Cache Miss                                  0
+ Sessions Not Decrypted - Session Limit                                  0
+ Sessions Not Decrypted - Message Size                                   0
+ Sessions Not Decrypted - No Memory                                      0
+ Sessions New Key                                                        426
+ Sessions Used Key                                                       0
+ Session ID Cache Hits                                                   0
+ Session ID Cache Misses                                                 0
+ Sessions Used XLR RSA SAE for Key Decryption                            2
+ Sessions - Error when XLR RSA SAE used                                  0
+
+
+
+
+
+
+1. test with 2048 correct key
+	decrypt with xlr sae
+
+	show security monitoring performance gives all zero
+
+2. test with 2048 wrong key
+	decrypt with xlr sae
+
+	show security monitoring performance gives all zero
+
+3. test with correct 4096 key
+	decrypt with software
+
+	show security monitoring performance gives following
+only send single session:
+root@bianchi> show security monitoring performance spu
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:   0  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:  54  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:   0   5:   0
+ 6:   0   7:   0   8:   0   9:  68  10:   0  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:   0  23:   0
+24:   0  25:   0  26:   0  27:   0  28:   0  29:   0
+30:   0  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:   0  38:   0  39:   0  40:   0  41:   0
+42:   0  43:   0  44:   0  45:   0  46:   0  47:   0
+48:   0  49:   0  50:   0  51:   0  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+
+
+4. test with wrong 4096 key
+	decrypt with software
+
+	show security monitoring performance gives following
+
+root@bianchi> show security monitoring performance spu
+
+fpc  7  pic  0
+Last 60 seconds:
+ 0:   0   1:   0   2:   0   3:   0   4:  67   5:   0
+ 6:   0   7:   0   8:   0   9:  72  10:  62  11:   0
+12:   0  13:   0  14:   0  15:   0  16:   0  17:   0
+18:   0  19:   0  20:   0  21:   0  22:  62  23:   0
+24:   0  25:  56  26:   0  27:   0  28:   0  29:   0
+30:  61  31:   0  32:   0  33:   0  34:   0  35:   0
+36:   0  37:  74  38:   0  39:   0  40:   0  41:  52
+42:   0  43:   0  44:   0  45:   0  46:  50  47:   0
+48:   0  49:   0  50:   0  51:  58  52:   0  53:   0
+54:   0  55:   0  56:   0  57:   0  58:   0  59:   0
+fpc  10 pic  0
+Last 60 seconds:
+ 0:   0   1:  72   2:   0   3:  88   4:   0   5:   0
+ 6:  74   7:   0   8:  93   9:   0  10:   0  11:   0
+12:   0  13:  95  14:  70  15:   0  16:  77  17:  73
+18:   0  19:  63  20:   0  21:  80  22:   0  23:   0
+24:  71  25:   0  26:   0  27:  61  28:   0  29:  78
+30:   0  31:   0  32:  70  33:   0  34:  78  35:  74
+36:   0  37:   0  38:   0  39:  87  40:  78  41:   0
+42:   0  43:   0  44:  98  45:  85  46:   0  47:   0
+48:  58  49:   0  50:  74  51:   0  52:   0  53:  66
+54:   0  55:  85  56:   0  57:   0  58:   0  59:   0
